@@ -38,6 +38,7 @@ export default function Auth() {
         } else {
           sileo.success({ title: 'Account created!', description: 'Welcome to Oasis Book Tracking. Add some books to begin.' })
         }
+      }
     } catch (err) {
       sileo.error({ title: 'Authentication Error', description: err.message })
     } finally {
