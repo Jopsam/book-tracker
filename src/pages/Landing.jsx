@@ -239,7 +239,7 @@ export default function Landing() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            className="glass-panel col-span-12" style={{ padding: '4rem', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', background: 'linear-gradient(145deg, rgba(26, 31, 46, 0.8) 0%, rgba(99, 102, 241, 0.1) 100%)' }}
+            className="glass-panel col-span-12 bento-padding-lg" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', background: 'linear-gradient(145deg, rgba(26, 31, 46, 0.8) 0%, rgba(99, 102, 241, 0.1) 100%)' }}
           >
             <Zap size={48} color="var(--primary)" style={{ marginBottom: '1.5rem' }} />
             <h2 className="h2" style={{ marginBottom: '1rem' }}>{t('bento.f1.title')}</h2>
@@ -252,7 +252,7 @@ export default function Landing() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            className="glass-panel col-span-6" style={{ padding: '3rem', borderTop: '4px solid var(--accent)' }}
+            className="glass-panel col-span-6 bento-padding-md" style={{ borderTop: '4px solid var(--accent)' }}
           >
             <CheckCircle size={32} color="var(--accent)" style={{ marginBottom: '1.5rem' }} />
             <h3 className="h3" style={{ marginBottom: '1rem' }}>{t('bento.f2.title')}</h3>
@@ -264,7 +264,7 @@ export default function Landing() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ delay: 0.1 }}
-            className="glass-panel col-span-6" style={{ padding: '3rem', borderTop: '4px solid var(--warning)' }}
+            className="glass-panel col-span-6 bento-padding-md" style={{ borderTop: '4px solid var(--warning)' }}
           >
             <TrendingUp size={32} color="var(--warning)" style={{ marginBottom: '1.5rem' }} />
             <h3 className="h3" style={{ marginBottom: '1rem' }}>{t('bento.f3.title')}</h3>
@@ -276,7 +276,7 @@ export default function Landing() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ delay: 0.2 }}
-            className="glass-panel col-span-4" style={{ padding: '2.5rem' }}
+            className="glass-panel col-span-4 bento-padding-sm"
           >
             <Database size={28} color="var(--text-primary)" style={{ marginBottom: '1rem' }} />
             <h4 style={{ fontSize: '1.125rem', marginBottom: '0.5rem', fontWeight: '600' }}>{t('bento.f4.title')}</h4>
@@ -288,7 +288,7 @@ export default function Landing() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ delay: 0.3 }}
-            className="glass-panel col-span-4" style={{ padding: '2.5rem' }}
+            className="glass-panel col-span-4 bento-padding-sm"
           >
             <Heart size={28} color="var(--text-primary)" style={{ marginBottom: '1rem' }} />
             <h4 style={{ fontSize: '1.125rem', marginBottom: '0.5rem', fontWeight: '600' }}>{t('bento.f5.title')}</h4>
@@ -300,7 +300,7 @@ export default function Landing() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ delay: 0.4 }}
-            className="glass-panel col-span-4" style={{ padding: '2.5rem' }}
+            className="glass-panel col-span-4 bento-padding-sm"
           >
             <Smartphone size={28} color="var(--text-primary)" style={{ marginBottom: '1rem' }} />
             <h4 style={{ fontSize: '1.125rem', marginBottom: '0.5rem', fontWeight: '600' }}>{t('bento.f6.title')}</h4>
