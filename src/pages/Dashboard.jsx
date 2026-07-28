@@ -11,6 +11,15 @@ export default function Dashboard() {
   
   // Form state
   const [showForm, setShowForm] = useState(false)
+
+  useEffect(() => {
+    if (showForm) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'auto'
+    }
+    return () => { document.body.style.overflow = 'auto' }
+  }, [showForm])
   const [isSaving, setIsSaving] = useState(false)
   const [formError, setFormError] = useState(null)
   const [title, setTitle] = useState('')
@@ -185,9 +194,26 @@ export default function Dashboard() {
       </div>
 
       {showForm && (
-        <div className="glass-panel animate-fade-in" style={{ padding: '2rem', marginBottom: '2rem' }}>
-          <h3 className="h3" style={{ marginBottom: '1.5rem' }}>{editingId ? 'Edit Book' : 'Add Book'}</h3>
-          {formError && (
+        <div 
+          className="animate-fade-in"
+          style={{
+            position: 'fixed',
+            inset: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.6)',
+            backdropFilter: 'blur(8px)',
+            zIndex: 1000,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '1rem'
+          }}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) resetForm()
+          }}
+        >
+          <div className="glass-panel" style={{ padding: '2rem', width: '100%', maxWidth: '600px', maxHeight: '90vh', overflowY: 'auto' }}>
+            <h3 className="h3" style={{ marginBottom: '1.5rem' }}>{editingId ? 'Edit Book' : 'Add Book'}</h3>
+            {formError && (
             <div style={{ padding: '0.75rem', backgroundColor: 'rgba(239, 68, 68, 0.1)', border: '1px solid var(--danger)', color: 'var(--danger)', borderRadius: 'var(--radius-md)', marginBottom: '1rem', fontSize: '0.875rem' }}>
               Error: {formError}
             </div>
@@ -277,6 +303,7 @@ export default function Dashboard() {
               <button type="button" onClick={resetForm} className="btn btn-outline" disabled={isSaving}>Cancel</button>
             </div>
           </form>
+          </div>
         </div>
       )}
 
