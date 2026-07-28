@@ -28,6 +28,7 @@ export default function Dashboard() {
   const [status, setStatus] = useState('to_read')
   const [progress, setProgress] = useState('')
   const [rating, setRating] = useState(0)
+  const [notes, setNotes] = useState('')
   
   const [editingId, setEditingId] = useState(null)
 
@@ -72,7 +73,15 @@ export default function Dashboard() {
     setIsSaving(true)
     setFormError(null)
 
-    const bookData = { title, author, status, progress, user_id: user.id, rating: rating > 0 ? rating : null }
+    const bookData = { 
+      title, 
+      author, 
+      status, 
+      progress, 
+      user_id: user.id, 
+      rating: rating > 0 ? rating : null,
+      notes 
+    }
     
     let cover_url = null
     cover_url = await fetchCoverUrl(title, author)
@@ -118,6 +127,7 @@ export default function Dashboard() {
     setStatus(book.status)
     setProgress(book.progress || '')
     setRating(book.rating || 0)
+    setNotes(book.notes || '')
     setShowForm(true)
   }
 
@@ -129,6 +139,7 @@ export default function Dashboard() {
     setStatus('to_read')
     setProgress('')
     setRating(0)
+    setNotes('')
     setFormError(null)
   }
 
@@ -307,6 +318,18 @@ export default function Dashboard() {
               </div>
             )}
             
+            <div className="input-group" style={{ gridColumn: '1 / -1' }}>
+              <label className="input-label">Personal Notes / Review</label>
+              <textarea
+                value={notes}
+                onChange={(e) => setNotes(e.target.value)}
+                className="input-field"
+                placeholder="What did you think about this book?"
+                rows={3}
+                style={{ resize: 'vertical', fontFamily: 'inherit' }}
+              />
+            </div>
+            
             <div style={{ gridColumn: '1 / -1', display: 'flex', gap: '1rem', justifyContent: 'flex-end', marginTop: '1rem' }}>
               <button type="submit" className="btn btn-primary" disabled={isSaving}>
                 {isSaving ? 'Searching cover & saving...' : 'Save Book'}
@@ -417,6 +440,14 @@ export default function Dashboard() {
                           <strong style={{ color: 'var(--text-primary)' }}>{new Date(book.created_at).toLocaleDateString()}</strong>
                         </p>
                       )}
+                    </div>
+                  )}
+                  
+                  {book.notes && (
+                    <div style={{ marginTop: '1rem', padding: '0.75rem', backgroundColor: 'rgba(99, 102, 241, 0.05)', borderLeft: '2px solid var(--primary)', borderRadius: '0 var(--radius-sm) var(--radius-sm) 0' }}>
+                      <p style={{ margin: 0, fontSize: '0.875rem', color: 'var(--text-secondary)', fontStyle: 'italic', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                        "{book.notes}"
+                      </p>
                     </div>
                   )}
                 </div>
