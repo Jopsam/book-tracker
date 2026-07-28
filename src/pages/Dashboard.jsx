@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from 'react'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../context/AuthContext'
-import { LogOut, Plus, Book, Trash2, Edit2 } from 'lucide-react'
+import { LogOut, Plus, Trash2, Edit2, Book, Image as ImageIcon, BookOpen } from 'lucide-react'
 
 export default function Dashboard() {
   const { user } = useAuth()
   const [books, setBooks] = useState([])
   const [loading, setLoading] = useState(true)
+  const [activeTab, setActiveTab] = useState('all')
   
   // Form state
   const [showForm, setShowForm] = useState(false)
+  const [isSaving, setIsSaving] = useState(false)
+  const [formError, setFormError] = useState(null)
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
-  const [status, setStatus] = useState('reading') // 'read', 'to_read', 'reading'
-  const [progress, setProgress] = useState('') // page or chapter
+  const [status, setStatus] = useState('reading')
+  const [progress, setProgress] = useState('')
   
   const [editingId, setEditingId] = useState(null)
 
@@ -29,16 +32,38 @@ export default function Dashboard() {
       .eq('user_id', user.id)
       .order('created_at', { ascending: false })
       
-    if (error) {
-      console.error('Error fetching books:', error)
-    } else {
-      setBooks(data)
-    }
+    if (error) console.error('Error fetching books:', error)
+    else setBooks(data)
+    
     setLoading(false)
+  }
+
+  const fetchCoverUrl = async (bookTitle, bookAuthor) => {
+    try {
+      const query = new URLSearchParams()
+      if (bookTitle) query.append('title', bookTitle)
+      if (bookAuthor) query.append('author', bookAuthor)
+      
+      const res = await fetch(`https://openlibrary.org/search.json?${query.toString()}`)
+      const data = await res.json()
+      
+      if (data.docs && data.docs.length > 0 && data.docs[0].cover_i) {
+        return `https://covers.openlibrary.org/b/id/${data.docs[0].cover_i}-M.jpg`
+      }
+    } catch (err) {
+      console.error("Failed to fetch cover", err)
+    }
+    return null
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setIsSaving(true)
+    setFormError(null)
+    
+    let cover_url = null
+    cover_url = await fetchCoverUrl(title, author)
+
     const bookData = {
       title,
       author,
@@ -46,17 +71,32 @@ export default function Dashboard() {
       progress,
       user_id: user.id
     }
+    
+    if (cover_url) {
+      bookData.cover_url = cover_url
+    }
 
     if (editingId) {
       const { error } = await supabase.from('books').update(bookData).eq('id', editingId)
-      if (error) console.error('Error updating:', error)
+      if (error) {
+        console.error('Error updating:', error)
+        setFormError(error.message)
+        setIsSaving(false)
+        return
+      }
     } else {
       const { error } = await supabase.from('books').insert([bookData])
-      if (error) console.error('Error inserting:', error)
+      if (error) {
+        console.error('Error inserting:', error)
+        setFormError(error.message)
+        setIsSaving(false)
+        return
+      }
     }
 
     resetForm()
     fetchBooks()
+    setIsSaving(false)
   }
 
   const handleDelete = async (id) => {
@@ -82,23 +122,31 @@ export default function Dashboard() {
     setAuthor('')
     setStatus('reading')
     setProgress('')
+    setFormError(null)
   }
 
   const getStatusBadge = (s) => {
     switch(s) {
-      case 'read': return <span style={{ color: 'var(--accent)', fontSize: '0.875rem' }}>Read</span>
-      case 'to_read': return <span style={{ color: 'var(--text-secondary)', fontSize: '0.875rem' }}>To Read</span>
-      case 'reading': return <span style={{ color: 'var(--warning)', fontSize: '0.875rem' }}>Reading</span>
+      case 'read': return <span style={{ color: 'var(--accent)', fontSize: '0.875rem', fontWeight: '500' }}>Finished</span>
+      case 'to_read': return <span style={{ color: 'var(--text-secondary)', fontSize: '0.875rem', fontWeight: '500' }}>To Read</span>
+      case 'reading': return <span style={{ color: 'var(--warning)', fontSize: '0.875rem', fontWeight: '500' }}>Reading</span>
       default: return null
     }
   }
 
+  const filteredBooks = books.filter(b => activeTab === 'all' || b.status === activeTab)
+
   return (
     <div className="container animate-fade-in" style={{ paddingTop: '2rem', paddingBottom: '4rem' }}>
       <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}>
-        <div>
-          <h1 className="h2">My Library</h1>
-          <p className="text-muted">{user.email}</p>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '48px', height: '48px', backgroundColor: 'rgba(99, 102, 241, 0.1)', borderRadius: 'var(--radius-md)', color: 'var(--primary)' }}>
+            <BookOpen size={28} />
+          </div>
+          <div>
+            <h1 className="h2" style={{ fontSize: '1.5rem', margin: 0, padding: 0 }}>Oasis Library</h1>
+            <p className="text-muted" style={{ fontSize: '0.875rem', margin: 0 }}>{user.email}</p>
+          </div>
         </div>
         <div style={{ display: 'flex', gap: '1rem' }}>
           <button onClick={() => setShowForm(!showForm)} className="btn btn-primary">
@@ -110,9 +158,43 @@ export default function Dashboard() {
         </div>
       </header>
 
+      {/* Tabs Navigation */}
+      <div style={{ display: 'flex', gap: '1rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '1rem', marginBottom: '2rem', overflowX: 'auto' }}>
+        {[
+          { id: 'all', label: 'All Books' },
+          { id: 'reading', label: 'Currently Reading' },
+          { id: 'to_read', label: 'To Read' },
+          { id: 'read', label: 'Finished' }
+        ].map(tab => (
+          <button
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id)}
+            style={{
+              background: 'none',
+              border: 'none',
+              color: activeTab === tab.id ? 'var(--primary)' : 'var(--text-secondary)',
+              fontWeight: activeTab === tab.id ? '600' : '400',
+              cursor: 'pointer',
+              padding: '0.5rem 1rem',
+              borderRadius: 'var(--radius-full)',
+              backgroundColor: activeTab === tab.id ? 'rgba(99, 102, 241, 0.1)' : 'transparent',
+              transition: 'var(--transition)',
+              whiteSpace: 'nowrap'
+            }}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
       {showForm && (
-        <div className="glass-panel" style={{ padding: '2rem', marginBottom: '2rem' }}>
+        <div className="glass-panel animate-fade-in" style={{ padding: '2rem', marginBottom: '2rem' }}>
           <h3 className="h3" style={{ marginBottom: '1.5rem' }}>{editingId ? 'Edit Book' : 'Add Book'}</h3>
+          {formError && (
+            <div style={{ padding: '0.75rem', backgroundColor: 'rgba(239, 68, 68, 0.1)', border: '1px solid var(--danger)', color: 'var(--danger)', borderRadius: 'var(--radius-md)', marginBottom: '1rem', fontSize: '0.875rem' }}>
+              Error: {formError}
+            </div>
+          )}
           <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '1rem', gridTemplateColumns: '1fr 1fr' }}>
             <div className="input-group">
               <label className="input-label">Title</label>
@@ -127,7 +209,7 @@ export default function Dashboard() {
               <select className="input-field" value={status} onChange={e => setStatus(e.target.value)}>
                 <option value="reading">Reading</option>
                 <option value="to_read">To Read</option>
-                <option value="read">Read</option>
+                <option value="read">Finished</option>
               </select>
             </div>
             {status === 'reading' && (
@@ -137,46 +219,97 @@ export default function Dashboard() {
               </div>
             )}
             <div style={{ gridColumn: '1 / -1', display: 'flex', gap: '1rem', marginTop: '1rem' }}>
-              <button type="submit" className="btn btn-primary">Save</button>
-              <button type="button" onClick={resetForm} className="btn btn-outline">Cancel</button>
+              <button type="submit" className="btn btn-primary" disabled={isSaving}>
+                {isSaving ? 'Searching cover & saving...' : 'Save Book'}
+              </button>
+              <button type="button" onClick={resetForm} className="btn btn-outline" disabled={isSaving}>Cancel</button>
             </div>
           </form>
         </div>
       )}
 
       {loading ? (
-        <p>Loading books...</p>
+        <p className="text-muted">Loading your library...</p>
       ) : (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '1.5rem' }}>
-          {books.length === 0 && !showForm && (
-            <p className="text-muted" style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '3rem 0' }}>
-              No books yet. Start building your library!
-            </p>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1.5rem' }}>
+          {filteredBooks.length === 0 && !showForm && (
+            <div className="glass-panel" style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '4rem 2rem' }}>
+              <Book size={48} color="var(--text-secondary)" style={{ margin: '0 auto 1rem auto', opacity: 0.5 }} />
+              <h3 className="h3" style={{ marginBottom: '0.5rem' }}>No books found</h3>
+              <p className="text-muted">
+                {activeTab === 'all' 
+                  ? "You haven't added any books yet." 
+                  : `You don't have any books in the "${activeTab}" category.`}
+              </p>
+            </div>
           )}
-          {books.map(book => (
-            <div key={book.id} className="glass-panel" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
-                <div>
-                  <h4 style={{ fontSize: '1.125rem', fontWeight: '600' }}>{book.title}</h4>
-                  {book.author && <p className="text-muted" style={{ fontSize: '0.875rem' }}>{book.author}</p>}
-                </div>
-                {getStatusBadge(book.status)}
-              </div>
+          
+          {filteredBooks.map(book => (
+            <div key={book.id} className="glass-panel animate-fade-in" style={{ display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
               
-              {book.status === 'reading' && book.progress && (
-                <div style={{ marginTop: 'auto', paddingTop: '1rem' }}>
-                  <p className="text-muted" style={{ fontSize: '0.875rem' }}>Progress: {book.progress}</p>
+              {/* Cover Image Area */}
+              <div style={{ 
+                height: '200px', 
+                backgroundColor: 'rgba(0,0,0,0.3)', 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center',
+                borderBottom: '1px solid var(--border-color)',
+                position: 'relative'
+              }}>
+                {book.cover_url ? (
+                  <img 
+                    src={book.cover_url} 
+                    alt={`Cover of ${book.title}`}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  />
+                ) : (
+                  <div style={{ color: 'var(--primary)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', opacity: 0.6 }}>
+                    <BookOpen size={48} />
+                    <span style={{ fontSize: '1rem', fontWeight: '600', color: 'var(--text-secondary)' }}>Oasis</span>
+                  </div>
+                )}
+                
+                {/* Status Badge floating on cover */}
+                <div style={{ 
+                  position: 'absolute', 
+                  top: '1rem', 
+                  right: '1rem', 
+                  backgroundColor: 'rgba(26, 31, 46, 0.8)',
+                  backdropFilter: 'blur(4px)',
+                  padding: '0.25rem 0.75rem',
+                  borderRadius: 'var(--radius-full)',
+                  border: '1px solid var(--border-color)'
+                }}>
+                  {getStatusBadge(book.status)}
                 </div>
-              )}
-
-              <div style={{ display: 'flex', gap: '0.5rem', marginTop: '1.5rem', paddingTop: '1rem', borderTop: '1px solid var(--border-color)' }}>
-                <button onClick={() => handleEdit(book)} style={{ background: 'none', border: 'none', color: 'var(--text-secondary)', cursor: 'pointer', padding: '0.25rem' }}>
-                  <Edit2 size={16} />
-                </button>
-                <button onClick={() => handleDelete(book.id)} style={{ background: 'none', border: 'none', color: 'var(--danger)', cursor: 'pointer', padding: '0.25rem' }}>
-                  <Trash2 size={16} />
-                </button>
               </div>
+
+              {/* Book Details */}
+              <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
+                <h4 style={{ fontSize: '1.125rem', fontWeight: '600', margin: '0 0 0.25rem 0', padding: 0 }}>{book.title}</h4>
+                {book.author && <p className="text-muted" style={{ fontSize: '0.875rem', margin: '0 0 1rem 0' }}>{book.author}</p>}
+                
+                {book.status === 'reading' && book.progress && (
+                  <div style={{ marginTop: 'auto', backgroundColor: 'rgba(0,0,0,0.2)', padding: '0.75rem', borderRadius: 'var(--radius-sm)' }}>
+                    <p className="text-muted" style={{ margin: 0, fontSize: '0.875rem', display: 'flex', justifyContent: 'space-between' }}>
+                      <span>Progress</span>
+                      <strong style={{ color: 'var(--text-primary)' }}>{book.progress}</strong>
+                    </p>
+                  </div>
+                )}
+
+                {/* Actions */}
+                <div style={{ display: 'flex', gap: '0.5rem', marginTop: '1.5rem', paddingTop: '1rem', borderTop: '1px solid var(--border-color)' }}>
+                  <button onClick={() => handleEdit(book)} style={{ background: 'none', border: 'none', color: 'var(--text-secondary)', cursor: 'pointer', padding: '0.25rem', transition: 'var(--transition)' }}>
+                    <Edit2 size={18} />
+                  </button>
+                  <button onClick={() => handleDelete(book.id)} style={{ background: 'none', border: 'none', color: 'var(--danger)', cursor: 'pointer', padding: '0.25rem', transition: 'var(--transition)' }}>
+                    <Trash2 size={18} />
+                  </button>
+                </div>
+              </div>
+
             </div>
           ))}
         </div>
