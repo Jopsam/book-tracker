@@ -39,7 +39,7 @@ export default function Landing() {
           <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
             <LanguageSwitcher />
             <Link to="/auth" className="btn btn-outline" style={{ borderRadius: 'var(--radius-full)', padding: '0.5rem 1.5rem' }}>
-              Sign In
+              {t('nav.signIn')}
             </Link>
           </div>
         </motion.nav>
@@ -81,9 +81,8 @@ export default function Landing() {
             transition={{ duration: 0.8, delay: 0.4 }}
             style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}
           >
-            <LanguageSwitcher />
             <Link to="/auth" className="btn btn-primary" style={{ fontSize: '1.125rem', padding: '1rem 2.5rem', borderRadius: 'var(--radius-full)' }}>
-              Start your library for free <ChevronRight size={20} />
+              {t('hero.cta2')} <ChevronRight size={20} />
             </Link>
           </motion.div>
           
@@ -226,10 +225,10 @@ export default function Landing() {
         <div style={{ marginTop: '8rem', textAlign: 'center' }}>
           <p style={{ color: 'var(--primary)', fontWeight: '600', letterSpacing: '0.1em', textTransform: 'uppercase', fontSize: '0.875rem', marginBottom: '1rem' }}>{t('problem.label')}</p>
           <h2 className="h2" style={{ maxWidth: '800px', margin: '0 auto 2rem auto', lineHeight: 1.3 }}>
-            Goodreads is outdated. Excel is boring.<br />Your reading life deserves better.
+            {t('problem.title1')}<br />{t('problem.title2')}
           </h2>
           <p className="text-muted" style={{ maxWidth: '600px', margin: '0 auto', fontSize: '1.125rem' }}>
-            We noticed that readers were forced to choose between social networks filled with ads and toxic reviews, or boring, lifeless spreadsheets. Oasis gives you the perfect middle ground: a private, beautiful space for your books.
+            {t('problem.desc')}
           </p>
         </div>
 
@@ -311,7 +310,7 @@ export default function Landing() {
           >
             <Smartphone size={28} color="var(--text-primary)" style={{ marginBottom: '1rem' }} />
             <h4 style={{ fontSize: '1.125rem', marginBottom: '0.5rem', fontWeight: '600' }}>{t('bento.f6.title')}</h4>
-            <p className="text-muted" style={{ fontSize: '0.875rem' }}>{t('features.f2.desc')}</p>
+            <p className="text-muted" style={{ fontSize: '0.875rem' }}>{t('bento.f6.desc')}</p>
           </motion.div>
         </div>
 
@@ -352,9 +351,8 @@ export default function Landing() {
           <p className="text-muted" style={{ maxWidth: '500px', margin: '0 auto 2.5rem auto', fontSize: '1.125rem' }}>
             Join thousands of readers who have already migrated to the most elegant book tracking experience on the web.
           </p>
-          <LanguageSwitcher />
-            <Link to="/auth" className="btn btn-primary" style={{ fontSize: '1.125rem', padding: '1rem 3rem', borderRadius: 'var(--radius-full)' }}>
-            Start Using Oasis
+          <Link to="/auth" className="btn btn-primary" style={{ fontSize: '1.125rem', padding: '1rem 3rem', borderRadius: 'var(--radius-full)' }}>
+            {t('cta.button')}
           </Link>
           <p style={{ marginTop: '1.5rem', fontSize: '0.875rem', color: 'var(--text-secondary)' }}>{t('cta.desc')}</p>
         </motion.div>

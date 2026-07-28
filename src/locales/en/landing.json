@@ -1,6 +1,7 @@
 {
   "nav": {
-    "login": "Login"
+    "login": "Login",
+    "signIn": "Sign In"
   },
   "hero": {
     "tag": "\ud83d\ude80 Oasis Book Tracking 2.0 is here",
@@ -8,7 +9,8 @@
     "title2": "Immerse in reading.",
     "subtitle": "Ditch the cluttered spreadsheets and clunky social networks. Oasis is the minimalist, beautifully crafted haven designed exclusively for your reading habits.",
     "cta": "Start Using Oasis",
-    "socialProof": "Loved by 10,000+ avid readers worldwide."
+    "socialProof": "Loved by 10,000+ avid readers worldwide.",
+    "cta2": "Start your library for free"
   },
   "mockup": {
     "book1": {
@@ -35,7 +37,9 @@
   "problem": {
     "label": "The Problem",
     "title": "Goodreads is outdated. Excel is boring. Your reading life deserves better.",
-    "desc": "We noticed that readers were forced to choose between social networks filled with ads and toxic reviews, or boring, lifeless spreadsheets. Oasis gives you the perfect middle ground: a private, beautiful space for your books."
+    "desc": "We noticed that readers were forced to choose between social networks filled with ads and toxic reviews, or boring, lifeless spreadsheets. Oasis gives you the perfect middle ground: a private, beautiful space for your books.",
+    "title1": "Goodreads is outdated. Excel is boring.",
+    "title2": "Your reading life deserves better."
   },
   "features": {
     "f1": {

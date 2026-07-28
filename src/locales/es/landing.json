@@ -1,6 +1,7 @@
 {
   "nav": {
-    "login": "Ingresar"
+    "login": "Ingresar",
+    "signIn": "Ingresar"
   },
   "hero": {
     "tag": "\ud83d\ude80 Oasis Book Tracking 2.0 ya est\u00e1 aqu\u00ed",
@@ -8,7 +9,8 @@
     "title2": "Sum\u00e9rgete en la lectura.",
     "subtitle": "Olv\u00eddate de las hojas de c\u00e1lculo desordenadas y las redes sociales torpes. Oasis es el refugio minimalista y bellamente dise\u00f1ado exclusivamente para tus h\u00e1bitos de lectura.",
     "cta": "Comenzar a usar Oasis",
-    "socialProof": "Amado por m\u00e1s de 10,000 \u00e1vidos lectores en todo el mundo."
+    "socialProof": "Amado por m\u00e1s de 10,000 \u00e1vidos lectores en todo el mundo.",
+    "cta2": "Comienza tu biblioteca gratis"
   },
   "mockup": {
     "book1": {
@@ -35,7 +37,9 @@
   "problem": {
     "label": "El Problema",
     "title": "Goodreads est\u00e1 obsoleto. Excel es aburrido. Tu vida lectora merece algo mejor.",
-    "desc": "Notamos que los lectores estaban obligados a elegir entre redes sociales llenas de anuncios y rese\u00f1as t\u00f3xicas, u hojas de c\u00e1lculo aburridas y sin vida. Oasis te da el punto medio perfecto: un espacio privado y hermoso para tus libros."
+    "desc": "Notamos que los lectores estaban obligados a elegir entre redes sociales llenas de anuncios y rese\u00f1as t\u00f3xicas, u hojas de c\u00e1lculo aburridas y sin vida. Oasis te da el punto medio perfecto: un espacio privado y hermoso para tus libros.",
+    "title1": "Goodreads est\u00e1 obsoleto. Excel es aburrido.",
+    "title2": "Tu vida lectora merece algo mejor."
   },
   "features": {
     "f1": {
@@ -84,7 +88,7 @@
     },
     "f2": {
       "title": "Organizaci\u00f3n Intuitiva",
-      "desc": "Sin etiquetas complicadas. Solo 'Por leer', 'Leyendo' y 'Terminados'. Todo lo que necesitas, nada que no."
+      "desc": "Sin etiquetas complicadas. Solo 'Por leer', 'Leyendo' y 'Terminados'. Todo lo que necesitas."
     },
     "f3": {
       "title": "Progreso Detallado",
