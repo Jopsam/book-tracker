@@ -194,7 +194,7 @@ const BookCard = ({ book, handleEdit, handleDelete, getStatusBadge, onRead, t })
 import { createPortal } from 'react-dom'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../context/AuthContext'
-import { LogOut, Plus, Trash2, Edit2, Book, Image as ImageIcon, BookOpen, Star, LibraryBig, BookX, Ghost, Search } from 'lucide-react'
+import { LogOut, Plus, Trash2, Edit2, Book, Image as ImageIcon, BookOpen, Star, LibraryBig, BookX, Ghost, Search, Loader2 } from 'lucide-react'
 import { sileo } from 'sileo'
 import { motion, AnimatePresence } from 'framer-motion'
 import LanguageSwitcher from '../components/LanguageSwitcher'
@@ -208,6 +208,13 @@ export default function Dashboard() {
   const [activeTab, setActiveTab] = useState('all')
   const [searchQuery, setSearchQuery] = useState('')
   const [readingBook, setReadingBook] = useState(null)
+  const [iframeLoaded, setIframeLoaded] = useState(false)
+  
+  useEffect(() => {
+    if (readingBook) {
+      setIframeLoaded(false)
+    }
+  }, [readingBook])
   
   // Form state
   const [showForm, setShowForm] = useState(false)
@@ -762,14 +769,20 @@ const fetchBooks = async () => {
                 <BookX size={20} />
               </button>
             </div>
-            <div style={{ flex: 1, width: '100%', backgroundColor: '#f5f5f5' }}>
+            <div style={{ flex: 1, width: '100%', backgroundColor: '#f5f5f5', position: 'relative' }}>
+              {!iframeLoaded && (
+                <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyItems: 'center', justifyContent: 'center', backgroundColor: '#f5f5f5' }}>
+                  <Loader2 size={40} className="spin-anim" style={{ color: 'var(--primary)' }} />
+                </div>
+              )}
               <iframe 
                 src={`https://archive.org/embed/${readingBook.ia_id}`}
                 width="100%" 
                 height="100%" 
                 frameBorder="0" 
                 allowFullScreen
-                style={{ display: 'block' }}
+                onLoad={() => setIframeLoaded(true)}
+                style={{ display: iframeLoaded ? 'block' : 'none' }}
               />
             </div>
           </motion.div>

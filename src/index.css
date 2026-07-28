@@ -206,6 +206,14 @@ select.input-field option:hover {
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.spin-anim {
+  animation: spin 1s linear infinite;
+}
+
 /* Responsive Grid Utility Classes */
 .bento-grid {
   display: grid;
