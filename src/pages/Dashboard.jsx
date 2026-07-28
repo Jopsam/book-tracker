@@ -226,7 +226,7 @@ export default function Dashboard() {
     }
     setIsSearching(true)
     try {
-      const res = await fetch(`https://openlibrary.org/search.json?q=${encodeURIComponent(query)}&limit=5`)
+      const res = await fetch(`https://openlibrary.org/search.json?q=${encodeURIComponent(query)}&limit=5&fields=key,title,author_name,cover_i,number_of_pages_median`)
       const data = await res.json()
       if (data.docs) {
         setSearchResults(data.docs.map(item => ({
