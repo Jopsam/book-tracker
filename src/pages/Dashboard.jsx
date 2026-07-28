@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../context/AuthContext'
-import { LogOut, Plus, Trash2, Edit2, Book, Image as ImageIcon, BookOpen } from 'lucide-react'
+import { LogOut, Plus, Trash2, Edit2, Book, Image as ImageIcon, BookOpen, Star } from 'lucide-react'
 
 export default function Dashboard() {
   const { user } = useAuth()
@@ -17,6 +17,7 @@ export default function Dashboard() {
   const [author, setAuthor] = useState('')
   const [status, setStatus] = useState('reading')
   const [progress, setProgress] = useState('')
+  const [rating, setRating] = useState(0)
   
   const [editingId, setEditingId] = useState(null)
 
@@ -60,17 +61,11 @@ export default function Dashboard() {
     e.preventDefault()
     setIsSaving(true)
     setFormError(null)
+
+    const bookData = { title, author, status, progress, user_id: user.id, rating: rating > 0 ? rating : null }
     
     let cover_url = null
     cover_url = await fetchCoverUrl(title, author)
-
-    const bookData = {
-      title,
-      author,
-      status,
-      progress,
-      user_id: user.id
-    }
     
     if (cover_url) {
       bookData.cover_url = cover_url
@@ -112,6 +107,7 @@ export default function Dashboard() {
     setAuthor(book.author || '')
     setStatus(book.status)
     setProgress(book.progress || '')
+    setRating(book.rating || 0)
     setShowForm(true)
   }
 
@@ -122,6 +118,7 @@ export default function Dashboard() {
     setAuthor('')
     setStatus('reading')
     setProgress('')
+    setRating(0)
     setFormError(null)
   }
 
@@ -213,12 +210,44 @@ export default function Dashboard() {
               </select>
             </div>
             {status === 'reading' && (
-              <div className="input-group">
-                <label className="input-label">Progress (Page / Chapter)</label>
-                <input className="input-field" value={progress} onChange={e => setProgress(e.target.value)} placeholder="e.g., Page 120" />
+              <div className="input-group" style={{ gridColumn: '1 / -1' }}>
+                <label className="input-label">Current Progress (Chapter/Page)</label>
+                <input
+                  type="text"
+                  value={progress}
+                  onChange={(e) => setProgress(e.target.value)}
+                  className="input-field"
+                  placeholder="e.g. Chapter 4, Page 120"
+                />
               </div>
             )}
-            <div style={{ gridColumn: '1 / -1', display: 'flex', gap: '1rem', marginTop: '1rem' }}>
+            
+            {status === 'read' && (
+              <div className="input-group" style={{ gridColumn: '1 / -1' }}>
+                <label className="input-label">Rating</label>
+                <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.25rem' }}>
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <button
+                      key={star}
+                      type="button"
+                      onClick={() => setRating(star)}
+                      style={{ 
+                        background: 'none', 
+                        border: 'none', 
+                        cursor: 'pointer', 
+                        padding: '0.25rem',
+                        color: star <= rating ? '#fbbf24' : 'var(--text-secondary)',
+                        transition: 'var(--transition)'
+                      }}
+                    >
+                      <Star size={28} fill={star <= rating ? '#fbbf24' : 'none'} />
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+            
+            <div style={{ gridColumn: '1 / -1', display: 'flex', gap: '1rem', justifyContent: 'flex-end', marginTop: '1rem' }}>
               <button type="submit" className="btn btn-primary" disabled={isSaving}>
                 {isSaving ? 'Searching cover & saving...' : 'Save Book'}
               </button>
@@ -302,9 +331,16 @@ export default function Dashboard() {
               <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
                 <div style={{ flex: 1 }}>
                   <h4 style={{ fontSize: '1.125rem', fontWeight: '600', margin: '0 0 0.25rem 0', padding: 0 }}>{book.title}</h4>
-                  <p className="text-muted" style={{ fontSize: '0.875rem', margin: '0 0 1rem 0' }}>
-                    {book.author ? book.author : 'No author registered'}
-                  </p>
+                  <div className="text-muted" style={{ fontSize: '0.875rem', margin: '0 0 1rem 0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span>{book.author ? book.author : 'No author registered'}</span>
+                    {book.rating && (
+                      <span style={{ display: 'flex', gap: '2px' }}>
+                        {[1, 2, 3, 4, 5].map(star => (
+                          <Star key={star} size={14} color={star <= book.rating ? '#fbbf24' : 'var(--text-secondary)'} fill={star <= book.rating ? '#fbbf24' : 'none'} opacity={star <= book.rating ? 1 : 0.3} />
+                        ))}
+                      </span>
+                    )}
+                  </div>
                   
                   {((book.status === 'reading' && book.progress) || book.status !== 'reading') && (
                     <div style={{ marginTop: '1rem', backgroundColor: 'rgba(0,0,0,0.2)', padding: '0.75rem', borderRadius: 'var(--radius-sm)' }}>
