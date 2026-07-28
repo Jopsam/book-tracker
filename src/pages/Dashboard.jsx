@@ -151,7 +151,7 @@ export default function Dashboard() {
             <BookOpen size={28} />
           </div>
           <div>
-            <h1 className="h2" style={{ fontSize: '1.5rem', margin: 0, padding: 0 }}>Oasis Library</h1>
+            <h1 className="h2" style={{ fontSize: '1.5rem', margin: 0, padding: 0 }}>Oasis Book Tracking</h1>
             <p className="text-muted" style={{ fontSize: '0.875rem', margin: 0 }}>{user.email}</p>
           </div>
         </div>
