@@ -97,7 +97,7 @@ export default function Auth() {
             onClick={() => { setIsLogin(!isLogin); }}
             style={{ background: 'none', border: 'none', color: 'var(--primary)', cursor: 'pointer', marginLeft: '0.5rem', fontWeight: '500' }}
           >
-            {isLogin ? 'Sign up' : 'Sign in'}
+            {isLogin ? t('auth.signUpLink') : t('auth.signInLink')}
           </button>
         </p>
       </div>
