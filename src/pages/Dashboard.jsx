@@ -300,7 +300,8 @@ const fetchBooks = async () => {
       progress, 
       user_id: user.id, 
       rating: rating > 0 ? rating : null,
-      notes 
+      notes,
+      page_count: pageCount ? parseInt(pageCount, 10) : null
     }
     
     let cover_url = null
@@ -630,7 +631,7 @@ const fetchBooks = async () => {
                   <input
                     type="number"
                     min="0"
-                    value={progress}
+                    value={progress || ''}
                     onChange={(e) => setProgress(e.target.value)}
                     placeholder={t('modal.progressPlaceholder')}
                     style={{ flex: 1, background: 'transparent', border: 'none', outline: 'none', color: 'inherit', padding: '0.75rem 1rem', textAlign: 'right', minWidth: 0 }}
@@ -639,7 +640,7 @@ const fetchBooks = async () => {
                   <input
                     type="number"
                     min="1"
-                    value={pageCount}
+                    value={pageCount || ''}
                     onChange={(e) => setPageCount(e.target.value)}
                     placeholder={t('modal.totalPagesPlaceholder')}
                     style={{ flex: 1, background: 'transparent', border: 'none', outline: 'none', color: 'inherit', padding: '0.75rem 1rem', textAlign: 'left', minWidth: 0 }}
