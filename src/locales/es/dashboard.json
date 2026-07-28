@@ -35,7 +35,8 @@
     "noAuthor": "Sin autor registrado",
     "finishedAt": "Terminado el",
     "registeredAt": "Registrado el",
-    "of": "de"
+    "of": "de",
+    "readNow": "Leer Ahora"
   },
   "modal": {
     "addTitle": "Añadir Libro",

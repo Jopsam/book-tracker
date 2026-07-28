@@ -161,7 +161,7 @@ const BookCard = ({ book, handleEdit, handleDelete, getStatusBadge, onRead, t })
         <button onClick={() => handleDelete(book.id)} style={{ background: 'none', border: 'none', color: 'var(--danger)', cursor: 'pointer', padding: '0.25rem', transition: 'var(--transition)' }}>
           <Trash2 size={18} />
         </button>
-        {book.ia_id && (
+        {book.ia_id && book.status === 'reading' && (
           <button 
             onClick={() => onRead(book)} 
             style={{ 
@@ -181,7 +181,7 @@ const BookCard = ({ book, handleEdit, handleDelete, getStatusBadge, onRead, t })
             }}
           >
             <BookOpen size={16} />
-            {t('bookCard.readNow', 'Leer Ahora')}
+            {t('bookCard.readNow')}
           </button>
         )}
       </div>
