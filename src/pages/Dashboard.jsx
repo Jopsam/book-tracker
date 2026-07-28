@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../context/AuthContext'
 import { LogOut, Plus, Trash2, Edit2, Book, Image as ImageIcon, BookOpen, Star } from 'lucide-react'
-import { toast } from 'sonner'
+import { sileo } from 'sileo'
 
 export default function Dashboard() {
   const { user } = useAuth()
@@ -93,20 +93,20 @@ export default function Dashboard() {
       const { error } = await supabase.from('books').update(bookData).eq('id', editingId)
       if (error) {
         console.error('Error updating:', error)
-        toast.error('Failed to update book: ' + error.message)
+        sileo.error({ title: 'Failed to update book', description: error.message })
         setIsSaving(false)
         return
       }
-      toast.success('Book updated successfully!')
+      sileo.success({ title: 'Book updated successfully!' })
     } else {
       const { error } = await supabase.from('books').insert([bookData])
       if (error) {
         console.error('Error inserting:', error)
-        toast.error('Failed to add book: ' + error.message)
+        sileo.error({ title: 'Failed to add book', description: error.message })
         setIsSaving(false)
         return
       }
-      toast.success('Book added successfully!')
+      sileo.success({ title: 'Book added successfully!' })
     }
 
     resetForm()
@@ -118,9 +118,9 @@ export default function Dashboard() {
     if (window.confirm('Are you sure you want to delete this book?')) {
       const { error } = await supabase.from('books').delete().eq('id', id)
       if (error) {
-        toast.error('Failed to delete book')
+        sileo.error({ title: 'Failed to delete book' })
       } else {
-        toast.success('Book deleted')
+        sileo.success({ title: 'Book deleted' })
         fetchBooks()
       }
     }

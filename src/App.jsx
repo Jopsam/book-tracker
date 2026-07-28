@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import { Toaster } from 'sonner'
+import { Toaster } from 'sileo'
 import { AuthProvider, useAuth } from './context/AuthContext'
 import Landing from './pages/Landing'
 import Auth from './pages/Auth'
@@ -15,7 +15,7 @@ function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
-        <Toaster theme="dark" position="top-center" richColors />
+        <Toaster position="top-center" />
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/auth" element={<Auth />} />

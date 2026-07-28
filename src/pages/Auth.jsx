@@ -3,7 +3,7 @@ import { supabase } from '../lib/supabase'
 import { useAuth } from '../context/AuthContext'
 import { useNavigate, Link } from 'react-router-dom'
 import { ArrowLeft } from 'lucide-react'
-import { toast } from 'sonner'
+import { sileo } from 'sileo'
 
 export default function Auth() {
   const { user } = useAuth()
@@ -28,19 +28,19 @@ export default function Auth() {
       if (isLogin) {
         const { error } = await supabase.auth.signInWithPassword({ email, password })
         if (error) throw error
-        toast.success('Welcome back!')
+        sileo.success({ title: 'Welcome back!' })
       } else {
         const { data, error } = await supabase.auth.signUp({ email, password })
         if (error) throw error
         
         if (data?.user && !data?.session) {
-          toast.info('Account created! Please check your email for the confirmation link.')
+          sileo.info({ title: 'Account created!', description: 'Please check your email for the confirmation link.' })
         } else {
-          toast.success('Account created successfully!')
+          sileo.success({ title: 'Account created successfully!' })
         }
       }
     } catch (err) {
-      toast.error(err.message)
+      sileo.error({ title: err.message })
     } finally {
       setLoading(false)
     }
