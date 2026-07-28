@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../context/AuthContext'
-import { LogOut, Plus, Trash2, Edit2, Book, Image as ImageIcon, BookOpen, Star } from 'lucide-react'
+import { LogOut, Plus, Trash2, Edit2, Book, Image as ImageIcon, BookOpen, Star, LibraryBig, BookX, Ghost } from 'lucide-react'
 import { sileo } from 'sileo'
+import { motion, AnimatePresence } from 'framer-motion'
 
 export default function Dashboard() {
   const { user } = useAuth()
@@ -156,6 +157,20 @@ export default function Dashboard() {
       default: return null
     }
   }
+
+  const getEmptyStateContent = () => {
+    switch (activeTab) {
+      case 'to_read':
+        return { icon: <LibraryBig size={48} />, title: "Your wishlist is empty", desc: "You don't have any books marked to read yet." }
+      case 'reading':
+        return { icon: <BookOpen size={48} />, title: "Not reading anything?", desc: "Start a book and track your progress here." }
+      case 'read':
+        return { icon: <Book size={48} />, title: "No finished books", desc: "Books you finish reading will appear here." }
+      default:
+        return { icon: <Ghost size={48} />, title: "Your library is a ghost town", desc: "You haven't added any books yet." }
+    }
+  }
+  const emptyState = getEmptyStateContent()
 
   const filteredBooks = books.filter(b => activeTab === 'all' || b.status === activeTab)
 
@@ -345,21 +360,50 @@ export default function Dashboard() {
       {loading ? (
         <p className="text-muted">Loading your library...</p>
       ) : (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1.5rem' }}>
-          {filteredBooks.length === 0 && !showForm && (
-            <div className="glass-panel" style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '4rem 2rem' }}>
-              <Book size={48} color="var(--text-secondary)" style={{ margin: '0 auto 1rem auto', opacity: 0.5 }} />
-              <h3 className="h3" style={{ marginBottom: '0.5rem' }}>No books found</h3>
-              <p className="text-muted">
-                {activeTab === 'all' 
-                  ? "You haven't added any books yet." 
-                  : `You don't have any books in the "${activeTab}" category.`}
-              </p>
-            </div>
-          )}
-          
-          {filteredBooks.map(book => (
-            <div key={book.id} className="glass-panel animate-fade-in" style={{ display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+        <motion.div layout style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1.5rem' }}>
+          <AnimatePresence mode="popLayout">
+            {filteredBooks.length === 0 && !showForm && (
+              <motion.div 
+                layout
+                initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.9, y: -20 }}
+                transition={{ duration: 0.3 }}
+                className="glass-panel" 
+                style={{ 
+                  gridColumn: '1 / -1', 
+                  textAlign: 'center', 
+                  padding: '5rem 2rem',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  gap: '1rem'
+                }}
+              >
+                <div style={{ color: 'var(--text-secondary)', opacity: 0.5, marginBottom: '0.5rem' }}>
+                  {emptyState.icon}
+                </div>
+                <h3 className="h3" style={{ margin: 0 }}>{emptyState.title}</h3>
+                <p className="text-muted" style={{ margin: 0, maxWidth: '400px' }}>
+                  {emptyState.desc}
+                </p>
+                <button onClick={() => setShowForm(true)} className="btn btn-primary" style={{ marginTop: '1rem' }}>
+                  <Plus size={20} /> Add your first book
+                </button>
+              </motion.div>
+            )}
+            
+            {filteredBooks.map(book => (
+              <motion.div 
+                layout
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.25 }}
+                key={book.id} 
+                className="glass-panel" 
+                style={{ display: 'flex', flexDirection: 'column', overflow: 'hidden' }}
+              >
               
               {/* Cover Image Area */}
               <div style={{ 
@@ -463,9 +507,10 @@ export default function Dashboard() {
                 </div>
               </div>
 
-            </div>
-          ))}
-        </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
       )}
     </div>
   )
