@@ -156,7 +156,7 @@ export default function Dashboard() {
 
   const getStatusBadge = (s) => {
     switch(s) {
-      case 'read': return <span style={{ color: 'var(--accent)', fontSize: '0.875rem', fontWeight: '500' }}>{t('actions.finished')}</span>
+      case 'read': return <span style={{ color: 'var(--accent)', fontSize: '0.875rem', fontWeight: '500' }}>{t('modal.statusFinished')}</span>
       case 'to_read': return <span style={{ color: 'var(--text-secondary)', fontSize: '0.875rem', fontWeight: '500' }}>{t('actions.toRead')}</span>
       case 'reading': return <span style={{ color: 'var(--warning)', fontSize: '0.875rem', fontWeight: '500' }}>{t('actions.reading')}</span>
       default: return null
@@ -499,7 +499,8 @@ export default function Dashboard() {
                   backdropFilter: 'blur(4px)',
                   padding: '0.25rem 0.75rem',
                   borderRadius: 'var(--radius-full)',
-                  border: '1px solid var(--border-color)'
+                  border: '1px solid var(--border-color)',
+                  zIndex: 10
                 }}>
                   {getStatusBadge(book.status)}
                 </div>
