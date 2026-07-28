@@ -626,25 +626,23 @@ const fetchBooks = async () => {
             {status === 'reading' && (
               <div className="input-group" style={{ gridColumn: '1 / -1' }}>
                 <label className="input-label">{t('modal.progressLabel')} / {t('modal.totalPagesLabel')}</label>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                <div className="input-field" style={{ display: 'flex', alignItems: 'center', padding: '0', overflow: 'hidden' }}>
                   <input
                     type="number"
                     min="0"
                     value={progress}
                     onChange={(e) => setProgress(e.target.value)}
-                    className="input-field"
                     placeholder={t('modal.progressPlaceholder')}
-                    style={{ flex: 1 }}
+                    style={{ flex: 1, background: 'transparent', border: 'none', outline: 'none', color: 'inherit', padding: '0.75rem 1rem', textAlign: 'right', minWidth: 0 }}
                   />
-                  <span style={{ color: 'var(--text-secondary)', fontSize: '1.25rem', fontWeight: '300' }}>/</span>
+                  <span style={{ color: 'var(--text-secondary)', fontSize: '1.25rem', fontWeight: '300', padding: '0 0.25rem', userSelect: 'none' }}>/</span>
                   <input
                     type="number"
                     min="1"
                     value={pageCount}
                     onChange={(e) => setPageCount(e.target.value)}
-                    className="input-field"
                     placeholder={t('modal.totalPagesPlaceholder')}
-                    style={{ flex: 1 }}
+                    style={{ flex: 1, background: 'transparent', border: 'none', outline: 'none', color: 'inherit', padding: '0.75rem 1rem', textAlign: 'left', minWidth: 0 }}
                   />
                 </div>
               </div>
