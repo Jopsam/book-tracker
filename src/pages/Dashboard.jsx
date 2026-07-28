@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../context/AuthContext'
 import { LogOut, Plus, Trash2, Edit2, Book, Image as ImageIcon, BookOpen, Star } from 'lucide-react'
@@ -193,7 +194,7 @@ export default function Dashboard() {
         ))}
       </div>
 
-      {showForm && (
+      {showForm && createPortal(
         <div 
           className="animate-fade-in"
           style={{
@@ -314,7 +315,8 @@ export default function Dashboard() {
             </div>
           </form>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
       {loading ? (
