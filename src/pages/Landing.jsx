@@ -187,9 +187,9 @@ export default function Landing() {
                       backgroundColor: 'rgba(26, 31, 46, 0.8)', backdropFilter: 'blur(4px)',
                       padding: '0.25rem 0.75rem', borderRadius: '999px', border: '1px solid rgba(255,255,255,0.1)', zIndex: 2
                     }}>
-                      {book.status === 'read' && <span style={{ color: 'var(--accent)', fontSize: '0.75rem', fontWeight: '500' }}>Finished</span>}
-                      {book.status === 'to_read' && <span style={{ color: 'var(--text-secondary)', fontSize: '0.75rem', fontWeight: '500' }}>To Read</span>}
-                      {book.status === 'reading' && <span style={{ color: 'var(--warning)', fontSize: '0.75rem', fontWeight: '500' }}>Reading</span>}
+                      {book.status === 'read' && <span style={{ color: 'var(--accent)', fontSize: '0.75rem', fontWeight: '500' }}>{t('mockup.finishedBadge')}</span>}
+                      {book.status === 'to_read' && <span style={{ color: 'var(--text-secondary)', fontSize: '0.75rem', fontWeight: '500' }}>{t('mockup.toReadBadge')}</span>}
+                      {book.status === 'reading' && <span style={{ color: 'var(--warning)', fontSize: '0.75rem', fontWeight: '500' }}>{t('mockup.readingBadge')}</span>}
                     </div>
                   </div>
 
@@ -210,7 +210,7 @@ export default function Landing() {
                     {book.status === 'reading' && (
                       <div style={{ marginTop: 'auto', backgroundColor: 'rgba(0,0,0,0.2)', padding: '0.5rem', borderRadius: '8px' }}>
                         <p style={{ margin: 0, fontSize: '0.75rem', color: 'var(--text-secondary)', display: 'flex', justifyContent: 'space-between' }}>
-                          <span>Progress</span>
+                          <span>{t('mockup.progressLabel')}</span>
                           <strong style={{ color: 'white' }}>{book.progress}</strong>
                         </p>
                       </div>
@@ -244,7 +244,7 @@ export default function Landing() {
             style={{ gridColumn: 'span 12', padding: '4rem', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', background: 'linear-gradient(145deg, rgba(26, 31, 46, 0.8) 0%, rgba(99, 102, 241, 0.1) 100%)' }}
           >
             <Zap size={48} color="var(--primary)" style={{ marginBottom: '1.5rem' }} />
-            <h2 className="h2" style={{ marginBottom: '1rem' }}>Blazing Fast, Buttery Smooth</h2>
+            <h2 className="h2" style={{ marginBottom: '1rem' }}>{t('bento.f1.title')}</h2>
             <p className="text-muted" style={{ maxWidth: '500px', fontSize: '1.125rem' }}>
               Built with React and Framer Motion. Find any book in milliseconds with our real-time filtering. Watch your library rearrange itself magically as you type.
             </p>
@@ -258,8 +258,8 @@ export default function Landing() {
             style={{ gridColumn: 'span 6', padding: '3rem', borderTop: '4px solid var(--accent)' }}
           >
             <CheckCircle size={32} color="var(--accent)" style={{ marginBottom: '1.5rem' }} />
-            <h3 className="h3" style={{ marginBottom: '1rem' }}>Intuitive Organization</h3>
-            <p className="text-muted">No complicated tags. Just 'To Read', 'Reading', and 'Finished'. Everything you need, nothing you don't.</p>
+            <h3 className="h3" style={{ marginBottom: '1rem' }}>{t('bento.f2.title')}</h3>
+            <p className="text-muted">{t('bento.f2.desc')}</p>
           </motion.div>
 
           <motion.div 
@@ -271,8 +271,8 @@ export default function Landing() {
             style={{ gridColumn: 'span 6', padding: '3rem', borderTop: '4px solid var(--warning)' }}
           >
             <TrendingUp size={32} color="var(--warning)" style={{ marginBottom: '1.5rem' }} />
-            <h3 className="h3" style={{ marginBottom: '1rem' }}>Granular Progress</h3>
-            <p className="text-muted">Log the exact page, chapter, or percentage where you left off. Perfect for readers juggling multiple books.</p>
+            <h3 className="h3" style={{ marginBottom: '1rem' }}>{t('bento.f3.title')}</h3>
+            <p className="text-muted">{t('bento.f3.desc')}</p>
           </motion.div>
 
           <motion.div 
@@ -284,8 +284,8 @@ export default function Landing() {
             style={{ gridColumn: 'span 4', padding: '2.5rem' }}
           >
             <Database size={28} color="var(--text-primary)" style={{ marginBottom: '1rem' }} />
-            <h4 style={{ fontSize: '1.125rem', marginBottom: '0.5rem', fontWeight: '600' }}>Cloud Synced</h4>
-            <p className="text-muted" style={{ fontSize: '0.875rem' }}>Powered by Supabase. Your data is safely stored in the cloud and instantly available everywhere.</p>
+            <h4 style={{ fontSize: '1.125rem', marginBottom: '0.5rem', fontWeight: '600' }}>{t('bento.f4.title')}</h4>
+            <p className="text-muted" style={{ fontSize: '0.875rem' }}>{t('bento.f4.desc')}</p>
           </motion.div>
 
           <motion.div 
@@ -297,8 +297,8 @@ export default function Landing() {
             style={{ gridColumn: 'span 4', padding: '2.5rem' }}
           >
             <Heart size={28} color="var(--text-primary)" style={{ marginBottom: '1rem' }} />
-            <h4 style={{ fontSize: '1.125rem', marginBottom: '0.5rem', fontWeight: '600' }}>Personal Reviews</h4>
-            <p className="text-muted" style={{ fontSize: '0.875rem' }}>Write private notes and rate your books. Your thoughts remain entirely yours, away from public eyes.</p>
+            <h4 style={{ fontSize: '1.125rem', marginBottom: '0.5rem', fontWeight: '600' }}>{t('bento.f5.title')}</h4>
+            <p className="text-muted" style={{ fontSize: '0.875rem' }}>{t('bento.f5.desc')}</p>
           </motion.div>
 
           <motion.div 
@@ -310,7 +310,7 @@ export default function Landing() {
             style={{ gridColumn: 'span 4', padding: '2.5rem' }}
           >
             <Smartphone size={28} color="var(--text-primary)" style={{ marginBottom: '1rem' }} />
-            <h4 style={{ fontSize: '1.125rem', marginBottom: '0.5rem', fontWeight: '600' }}>Responsive</h4>
+            <h4 style={{ fontSize: '1.125rem', marginBottom: '0.5rem', fontWeight: '600' }}>{t('bento.f6.title')}</h4>
             <p className="text-muted" style={{ fontSize: '0.875rem' }}>{t('features.f2.desc')}</p>
           </motion.div>
         </div>
@@ -324,19 +324,19 @@ export default function Landing() {
             <div style={{ textAlign: 'center', position: 'relative', zIndex: 1 }}>
               <div style={{ width: '48px', height: '48px', borderRadius: '50%', backgroundColor: 'var(--surface-color)', border: '1px solid var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem auto', fontSize: '1.25rem', fontWeight: '700', color: 'var(--primary)', boxShadow: '0 0 20px rgba(99, 102, 241, 0.2)' }}>1</div>
               <h3 className="h3" style={{ marginBottom: '1rem' }}>{t('howItWorks.step1.title')}</h3>
-              <p className="text-muted">Sign up in seconds. No credit card required. A purely private workspace.</p>
+              <p className="text-muted">{t('howItWorks.step1.desc')}</p>
             </div>
             
             <div style={{ textAlign: 'center', position: 'relative', zIndex: 1 }}>
               <div style={{ width: '48px', height: '48px', borderRadius: '50%', backgroundColor: 'var(--surface-color)', border: '1px solid var(--accent)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem auto', fontSize: '1.25rem', fontWeight: '700', color: 'var(--accent)', boxShadow: '0 0 20px rgba(16, 185, 129, 0.2)' }}>2</div>
               <h3 className="h3" style={{ marginBottom: '1rem' }}>{t('howItWorks.step2.title')}</h3>
-              <p className="text-muted">Add books manually or let us automatically fetch covers from OpenLibrary.</p>
+              <p className="text-muted">{t('howItWorks.step2.desc')}</p>
             </div>
             
             <div style={{ textAlign: 'center', position: 'relative', zIndex: 1 }}>
               <div style={{ width: '48px', height: '48px', borderRadius: '50%', backgroundColor: 'var(--surface-color)', border: '1px solid var(--warning)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem auto', fontSize: '1.25rem', fontWeight: '700', color: 'var(--warning)', boxShadow: '0 0 20px rgba(245, 158, 11, 0.2)' }}>3</div>
               <h3 className="h3" style={{ marginBottom: '1rem' }}>{t('howItWorks.step3.title')}</h3>
-              <p className="text-muted">Update your progress and write down your private thoughts when you finish.</p>
+              <p className="text-muted">{t('howItWorks.step3.desc')}</p>
             </div>
           </div>
         </div>
@@ -348,7 +348,7 @@ export default function Landing() {
           viewport={{ once: true }}
           style={{ marginTop: '8rem', marginBottom: '4rem', textAlign: 'center', padding: '5rem 2rem', background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(26, 31, 46, 0.8) 100%)', borderRadius: '32px', border: '1px solid rgba(99, 102, 241, 0.3)', boxShadow: '0 25px 50px -12px rgba(99, 102, 241, 0.2)' }}
         >
-          <h2 className="h2" style={{ marginBottom: '1.5rem', fontSize: '2.5rem' }}>Ready to organize your reading life?</h2>
+          <h2 className="h2" style={{ marginBottom: '1.5rem', fontSize: '2.5rem' }}>{t('cta.title')}</h2>
           <p className="text-muted" style={{ maxWidth: '500px', margin: '0 auto 2.5rem auto', fontSize: '1.125rem' }}>
             Join thousands of readers who have already migrated to the most elegant book tracking experience on the web.
           </p>
@@ -356,7 +356,7 @@ export default function Landing() {
             <Link to="/auth" className="btn btn-primary" style={{ fontSize: '1.125rem', padding: '1rem 3rem', borderRadius: 'var(--radius-full)' }}>
             Start Using Oasis
           </Link>
-          <p style={{ marginTop: '1.5rem', fontSize: '0.875rem', color: 'var(--text-secondary)' }}>Free forever. No ads. No tracking.</p>
+          <p style={{ marginTop: '1.5rem', fontSize: '0.875rem', color: 'var(--text-secondary)' }}>{t('cta.desc')}</p>
         </motion.div>
 
         {/* 7. Footer */}

@@ -3,22 +3,22 @@
     "login": "Ingresar"
   },
   "hero": {
-    "tag": "🚀 Oasis Book Tracking 2.0 ya está aquí",
+    "tag": "\ud83d\ude80 Oasis Book Tracking 2.0 ya est\u00e1 aqu\u00ed",
     "title1": "Escapa del ruido.",
-    "title2": "Sumérgete en la lectura.",
-    "subtitle": "Olvídate de las hojas de cálculo desordenadas y las redes sociales torpes. Oasis es el refugio minimalista y bellamente diseñado exclusivamente para tus hábitos de lectura.",
+    "title2": "Sum\u00e9rgete en la lectura.",
+    "subtitle": "Olv\u00eddate de las hojas de c\u00e1lculo desordenadas y las redes sociales torpes. Oasis es el refugio minimalista y bellamente dise\u00f1ado exclusivamente para tus h\u00e1bitos de lectura.",
     "cta": "Comenzar a usar Oasis",
-    "socialProof": "Amado por más de 10,000 ávidos lectores en todo el mundo."
+    "socialProof": "Amado por m\u00e1s de 10,000 \u00e1vidos lectores en todo el mundo."
   },
   "mockup": {
     "book1": {
       "title": "Dune",
       "author": "Frank Herbert",
       "status": "Leyendo",
-      "progress": "Capítulo 12, Pág 245"
+      "progress": "Cap\u00edtulo 12, P\u00e1g 245"
     },
     "book2": {
-      "title": "Hábitos Atómicos",
+      "title": "H\u00e1bitos At\u00f3micos",
       "author": "James Clear",
       "status": "Terminado"
     },
@@ -26,51 +26,81 @@
       "title": "Proyecto Hail Mary",
       "author": "Andy Weir",
       "status": "Por leer"
-    }
+    },
+    "readingBadge": "Leyendo",
+    "finishedBadge": "Terminado",
+    "toReadBadge": "Por Leer",
+    "progressLabel": "Progreso"
   },
   "problem": {
     "label": "El Problema",
-    "title": "Goodreads está obsoleto. Excel es aburrido. Tu vida lectora merece algo mejor.",
-    "desc": "Notamos que los lectores estaban obligados a elegir entre redes sociales llenas de anuncios y reseñas tóxicas, u hojas de cálculo aburridas y sin vida. Oasis te da el punto medio perfecto: un espacio privado y hermoso para tus libros."
+    "title": "Goodreads est\u00e1 obsoleto. Excel es aburrido. Tu vida lectora merece algo mejor.",
+    "desc": "Notamos que los lectores estaban obligados a elegir entre redes sociales llenas de anuncios y rese\u00f1as t\u00f3xicas, u hojas de c\u00e1lculo aburridas y sin vida. Oasis te da el punto medio perfecto: un espacio privado y hermoso para tus libros."
   },
   "features": {
     "f1": {
       "title": "Biblioteca Privada",
-      "desc": "Tus libros, tus asuntos. Sin seguidores, sin presión, solo tu colección personal."
+      "desc": "Tus libros, tus asuntos. Sin seguidores, sin presi\u00f3n, solo tu colecci\u00f3n personal."
     },
     "f2": {
-      "title": "Diseño Hermoso",
-      "desc": "Se ve increíble en tu monitor 4K, tu laptop y tu smartphone. Lee en cualquier lugar."
+      "title": "Dise\u00f1o Hermoso",
+      "desc": "Se ve incre\u00edble en tu monitor 4K, tu laptop y tu smartphone. Lee en cualquier lugar."
     },
     "f3": {
       "title": "Seguimiento Inteligente",
-      "desc": "Registra tu progreso, califica tus lecturas y organiza tus pendientes sin fricción."
+      "desc": "Registra tu progreso, califica tus lecturas y organiza tus pendientes sin fricci\u00f3n."
     }
   },
   "howItWorks": {
-    "title": "Cómo funciona Oasis",
+    "title": "C\u00f3mo funciona Oasis",
     "step1": {
       "title": "Crea tu Cuenta",
-      "desc": "Regístrate en segundos y accede a tu santuario privado y seguro."
+      "desc": "Reg\u00edstrate en segundos. No se requiere tarjeta de cr\u00e9dito. Un espacio puramente privado."
     },
     "step2": {
       "title": "Arma tu Biblioteca",
-      "desc": "Agrega los libros que leíste, estás leyendo, o quieres leer."
+      "desc": "A\u00f1ade libros manualmente o deja que obtengamos autom\u00e1ticamente las portadas desde OpenLibrary."
     },
     "step3": {
-      "title": "Registra y Reseña",
-      "desc": "Actualiza tu progreso y deja notas solo para ti."
+      "title": "Registra y Rese\u00f1a",
+      "desc": "Actualiza tu progreso y anota tus pensamientos privados cuando termines."
     }
   },
   "cta": {
-    "title": "¿Listo para elevar tu lectura?",
-    "desc": "Únete a los miles de lectores que ya han mejorado su experiencia de biblioteca digital.",
+    "title": "\u00bfListo para organizar tu vida lectora?",
+    "desc": "Gratis para siempre. Sin anuncios. Sin rastreo.",
     "button": "Comenzar Ahora"
   },
   "footer": {
     "privacy": "Privacidad",
-    "terms": "Términos",
+    "terms": "T\u00e9rminos",
     "github": "GitHub",
     "twitter": "Twitter"
+  },
+  "bento": {
+    "f1": {
+      "title": "S\u00faper R\u00e1pido, Incre\u00edblemente Fluido",
+      "desc": "Construido con React y Framer Motion. Encuentra cualquier libro en milisegundos con nuestro filtrado en tiempo real. Mira c\u00f3mo tu biblioteca se reorganiza m\u00e1gicamente mientras escribes."
+    },
+    "f2": {
+      "title": "Organizaci\u00f3n Intuitiva",
+      "desc": "Sin etiquetas complicadas. Solo 'Por leer', 'Leyendo' y 'Terminados'. Todo lo que necesitas, nada que no."
+    },
+    "f3": {
+      "title": "Progreso Detallado",
+      "desc": "Registra la p\u00e1gina exacta, el cap\u00edtulo o el porcentaje donde te quedaste. Perfecto para lectores que leen varios libros a la vez."
+    },
+    "f4": {
+      "title": "Sincronizado en la Nube",
+      "desc": "Impulsado por Supabase. Tus datos se guardan de forma segura en la nube y est\u00e1n disponibles instant\u00e1neamente en todas partes."
+    },
+    "f5": {
+      "title": "Rese\u00f1as Personales",
+      "desc": "Escribe notas privadas y califica tus libros. Tus pensamientos siguen siendo totalmente tuyos, lejos de los ojos del p\u00fablico."
+    },
+    "f6": {
+      "title": "Responsivo",
+      "desc": "Se ve incre\u00edble en tu monitor 4K, tu port\u00e1til y tu tel\u00e9fono inteligente. Lee en cualquier lugar."
+    }
   }
 }

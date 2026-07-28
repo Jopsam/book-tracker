@@ -97,20 +97,20 @@ export default function Dashboard() {
       const { error } = await supabase.from('books').update(bookData).eq('id', editingId)
       if (error) {
         console.error('Error updating:', error)
-        sileo.error({ title: 'Failed to update book', description: error.message })
+        sileo.error({ title: t('notifs.errorUpdating'), description: error.message })
         setIsSaving(false)
         return
       }
-      sileo.success({ title: 'Book updated', description: 'Your changes have been saved to your library.' })
+      sileo.success({ title: t('notifs.bookUpdated'), description: t('notifs.bookUpdatedDesc', 'Your changes have been saved to your library.') })
     } else {
       const { error } = await supabase.from('books').insert([bookData])
       if (error) {
         console.error('Error inserting:', error)
-        sileo.error({ title: 'Failed to add book', description: error.message })
+        sileo.error({ title: t('notifs.errorAdding'), description: error.message })
         setIsSaving(false)
         return
       }
-      sileo.success({ title: 'Book added', description: 'The new book is now available in your library.' })
+      sileo.success({ title: t('notifs.bookAdded'), description: t('notifs.bookAddedDesc', 'The new book is now available in your library.') })
     }
 
     resetForm()
@@ -122,9 +122,9 @@ export default function Dashboard() {
     if (window.confirm('Are you sure you want to delete this book?')) {
       const { error } = await supabase.from('books').delete().eq('id', id)
       if (error) {
-        sileo.error({ title: 'Action failed', description: 'We could not delete this book. Please try again.' })
+        sileo.error({ title: t('notifs.errorDeleting'), description: t('notifs.errorDeletingDesc', 'We could not delete this book. Please try again.') })
       } else {
-        sileo.success({ title: 'Book deleted', description: 'The book was permanently removed from your library.' })
+        sileo.success({ title: t('notifs.bookDeleted'), description: t('notifs.bookDeletedDesc', 'The book was permanently removed from your library.') })
         fetchBooks()
       }
     }
@@ -290,11 +290,11 @@ export default function Dashboard() {
             <h3 className="h3" style={{ marginBottom: '2rem' }}>{editingId ? 'Edit Book' : 'Add Book'}</h3>
           <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '1rem', gridTemplateColumns: '1fr 1fr' }}>
             <div className="input-group">
-              <label className="input-label">Title</label>
+              <label className="input-label">{t('modal.titleLabel')}</label>
               <input required className="input-field" value={title} onChange={e => setTitle(e.target.value)} />
             </div>
             <div className="input-group">
-              <label className="input-label">Author (optional)</label>
+              <label className="input-label">{t('modal.authorLabel')}</label>
               <input className="input-field" value={author} onChange={e => setAuthor(e.target.value)} />
             </div>
             <div className="input-group" style={{ gridColumn: status === 'to_read' ? '1 / -1' : 'auto' }}>

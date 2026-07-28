@@ -36,9 +36,9 @@ export default function Auth() {
         if (error) throw error
         
         if (data?.user && !data?.session) {
-          sileo.info({ title: 'Account created!', description: 'Please check your email for the confirmation link.' })
+          sileo.info({ title: t('auth.accountCreated'), description: 'Please check your email for the confirmation link.' })
         } else {
-          sileo.success({ title: 'Account created!', description: 'Welcome to Oasis Book Tracking. Add some books to begin.' })
+          sileo.success({ title: t('auth.accountCreated'), description: t('auth.welcomeAdd')})
         }
       }
     } catch (err) {

@@ -50,7 +50,9 @@
     "notesLabel": "Notes",
     "notesPlaceholder": "Add notes...",
     "cancel": "Cancel",
-    "save": "Save Book"
+    "save": "Save Book",
+    "titleLabel": "Title",
+    "authorLabel": "Author (optional)"
   },
   "auth": {
     "welcomeBack": "Welcome Back",
@@ -63,6 +65,20 @@
     "signIn": "Sign In",
     "signUp": "Sign Up",
     "noAccount": "Don't have an account? Sign up",
-    "hasAccount": "Already have an account? Sign in"
+    "hasAccount": "Already have an account? Sign in",
+    "accountCreated": "Account created!",
+    "welcomeAdd": "Welcome to Oasis Book Tracking. Add some books to begin.",
+    "signedOut": "Signed out",
+    "seeYou": "See you next time!",
+    "errorDefault": "Authentication error"
+  },
+  "notifs": {
+    "bookAdded": "Book added successfully!",
+    "bookUpdated": "Book updated successfully!",
+    "bookDeleted": "Book deleted successfully!",
+    "errorLoading": "Error loading books",
+    "errorAdding": "Error adding book",
+    "errorUpdating": "Error updating book",
+    "errorDeleting": "Error deleting book"
   }
 }

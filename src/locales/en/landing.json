@@ -3,7 +3,7 @@
     "login": "Login"
   },
   "hero": {
-    "tag": "🚀 Oasis Book Tracking 2.0 is here",
+    "tag": "\ud83d\ude80 Oasis Book Tracking 2.0 is here",
     "title1": "Escape the noise.",
     "title2": "Immerse in reading.",
     "subtitle": "Ditch the cluttered spreadsheets and clunky social networks. Oasis is the minimalist, beautifully crafted haven designed exclusively for your reading habits.",
@@ -26,7 +26,11 @@
       "title": "Project Hail Mary",
       "author": "Andy Weir",
       "status": "To Read"
-    }
+    },
+    "readingBadge": "Reading",
+    "finishedBadge": "Finished",
+    "toReadBadge": "To Read",
+    "progressLabel": "Progress"
   },
   "problem": {
     "label": "The Problem",
@@ -51,20 +55,20 @@
     "title": "How Oasis works",
     "step1": {
       "title": "Create Account",
-      "desc": "Sign up in seconds and access your secure, private sanctuary."
+      "desc": "Sign up in seconds. No credit card required. A purely private workspace."
     },
     "step2": {
       "title": "Build Library",
-      "desc": "Add the books you've read, are reading, or want to read next."
+      "desc": "Add books manually or let us automatically fetch covers from OpenLibrary."
     },
     "step3": {
       "title": "Track & Review",
-      "desc": "Update progress and leave notes just for yourself."
+      "desc": "Update your progress and write down your private thoughts when you finish."
     }
   },
   "cta": {
-    "title": "Ready to elevate your reading?",
-    "desc": "Join the thousands of readers who have already upgraded their digital library experience.",
+    "title": "Ready to organize your reading life?",
+    "desc": "Free forever. No ads. No tracking.",
     "button": "Get Started Now"
   },
   "footer": {
@@ -72,5 +76,31 @@
     "terms": "Terms",
     "github": "GitHub",
     "twitter": "Twitter"
+  },
+  "bento": {
+    "f1": {
+      "title": "Blazing Fast, Buttery Smooth",
+      "desc": "Built with React and Framer Motion. Find any book in milliseconds with our real-time filtering. Watch your library rearrange itself magically as you type."
+    },
+    "f2": {
+      "title": "Intuitive Organization",
+      "desc": "No complicated tags. Just 'To Read', 'Reading', and 'Finished'. Everything you need, nothing you don't."
+    },
+    "f3": {
+      "title": "Granular Progress",
+      "desc": "Log the exact page, chapter, or percentage where you left off. Perfect for readers juggling multiple books."
+    },
+    "f4": {
+      "title": "Cloud Synced",
+      "desc": "Powered by Supabase. Your data is safely stored in the cloud and instantly available everywhere."
+    },
+    "f5": {
+      "title": "Personal Reviews",
+      "desc": "Write private notes and rate your books. Your thoughts remain entirely yours, away from public eyes."
+    },
+    "f6": {
+      "title": "Responsive",
+      "desc": "Looks stunning on your 4K monitor, your laptop, and your smartphone. Read anywhere."
+    }
   }
 }
