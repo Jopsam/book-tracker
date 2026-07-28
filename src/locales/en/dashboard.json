@@ -59,7 +59,9 @@
     "progressLabel": "Current Progress (Chapter/Page)",
     "progressPlaceholder": "e.g. Chapter 4, Page 120",
     "saving": "Searching cover & saving...",
-    "saveBtn": "Save Book"
+    "saveBtn": "Save Book",
+    "googleBooksSearchLabel": "Auto-fill from Google Books",
+    "googleBooksPlaceholder": "Type a book name to search..."
   },
   "auth": {
     "welcomeBack": "Welcome Back",
@@ -100,7 +102,9 @@
     "bookUpdatedDesc": "Your changes have been saved to your library.",
     "bookAddedDesc": "The new book is now available in your library.",
     "errorDeletingDesc": "We could not delete this book. Please try again.",
-    "bookDeletedDesc": "The book was permanently removed from your library."
+    "bookDeletedDesc": "The book was permanently removed from your library.",
+    "bookFound": "Book Found",
+    "bookFoundDesc": "Metadata auto-filled successfully!"
   },
   "emptyState": {
     "searchTitle": "No matches found",

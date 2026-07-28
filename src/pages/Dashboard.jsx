@@ -35,6 +35,14 @@ export default function Dashboard() {
   const [progress, setProgress] = useState('')
   const [rating, setRating] = useState(0)
   const [notes, setNotes] = useState('')
+  const [coverUrl, setCoverUrl] = useState('')
+  const [pageCount, setPageCount] = useState('')
+  
+  // Google Books API Search state
+  const [bookSearchQuery, setBookSearchQuery] = useState('')
+  const [searchResults, setSearchResults] = useState([])
+  const [isSearching, setIsSearching] = useState(false)
+
   
   const [editingId, setEditingId] = useState(null)
 
@@ -42,7 +50,46 @@ export default function Dashboard() {
     fetchBooks()
   }, [])
 
-  const fetchBooks = async () => {
+  
+  const searchGoogleBooks = async (query) => {
+    if (!query.trim()) {
+      setSearchResults([])
+      return
+    }
+    setIsSearching(true)
+    try {
+      const res = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(query)}&maxResults=5`)
+      const data = await res.json()
+      if (data.items) {
+        setSearchResults(data.items.map(item => ({
+          id: item.id,
+          title: item.volumeInfo.title,
+          author: item.volumeInfo.authors ? item.volumeInfo.authors.join(', ') : '',
+          coverUrl: item.volumeInfo.imageLinks?.thumbnail?.replace('http:', 'https:') || '',
+          pageCount: item.volumeInfo.pageCount || ''
+        })))
+      } else {
+        setSearchResults([])
+      }
+    } catch (err) {
+      console.error('Error fetching from Google Books', err)
+      setSearchResults([])
+    } finally {
+      setIsSearching(false)
+    }
+  }
+
+  const handleSelectBook = (book) => {
+    setTitle(book.title)
+    setAuthor(book.author)
+    setCoverUrl(book.coverUrl)
+    setPageCount(book.pageCount)
+    setSearchResults([])
+    setBookSearchQuery('')
+    sileo.success({ title: t('notifs.bookFound'), description: t('notifs.bookFoundDesc') })
+  }
+
+const fetchBooks = async () => {
     setLoading(true)
     const { data, error } = await supabase
       .from('books')
@@ -292,6 +339,83 @@ export default function Dashboard() {
           }}>
             <h3 className="h3" style={{ marginBottom: '2rem' }}>{editingId ? t('modal.editTitle') : t('modal.addTitle')}</h3>
           <form onSubmit={handleSubmit} className="modal-form-grid">
+            <div className="input-group" style={{ gridColumn: '1 / -1', position: 'relative' }}>
+              <label className="input-label" style={{ color: 'var(--primary)' }}>✨ {t('modal.googleBooksSearchLabel')}</label>
+              <div style={{ display: 'flex', gap: '0.5rem' }}>
+                <input 
+                  type="text" 
+                  className="input-field" 
+                  style={{ flex: 1 }}
+                  placeholder={t('modal.googleBooksPlaceholder')}
+                  value={bookSearchQuery}
+                  onChange={e => setBookSearchQuery(e.target.value)}
+                  onKeyDown={e => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault()
+                      searchGoogleBooks(bookSearchQuery)
+                    }
+                  }}
+                />
+                <button 
+                  type="button" 
+                  className="btn btn-primary" 
+                  onClick={() => searchGoogleBooks(bookSearchQuery)}
+                  disabled={isSearching}
+                >
+                  {isSearching ? '...' : <Search size={20} />}
+                </button>
+              </div>
+              
+              {searchResults.length > 0 && (
+                <div style={{ 
+                  position: 'absolute', 
+                  top: '100%', 
+                  left: 0, 
+                  right: 0, 
+                  backgroundColor: 'var(--surface-color)', 
+                  border: '1px solid var(--border-color)', 
+                  borderRadius: 'var(--radius-md)', 
+                  marginTop: '0.5rem', 
+                  zIndex: 50, 
+                  boxShadow: 'var(--shadow-lg)',
+                  maxHeight: '300px',
+                  overflowY: 'auto'
+                }}>
+                  {searchResults.map(book => (
+                    <div 
+                      key={book.id} 
+                      onClick={() => handleSelectBook(book)}
+                      style={{ 
+                        padding: '0.75rem', 
+                        borderBottom: '1px solid rgba(255,255,255,0.05)', 
+                        cursor: 'pointer',
+                        display: 'flex',
+                        gap: '1rem',
+                        alignItems: 'center',
+                        transition: 'background-color 0.2s'
+                      }}
+                      onMouseEnter={e => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.05)'}
+                      onMouseLeave={e => e.currentTarget.style.backgroundColor = 'transparent'}
+                    >
+                      {book.coverUrl ? (
+                        <img src={book.coverUrl} alt="cover" style={{ width: '40px', height: '60px', objectFit: 'cover', borderRadius: '4px' }} />
+                      ) : (
+                        <div style={{ width: '40px', height: '60px', backgroundColor: 'rgba(0,0,0,0.3)', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                          <BookOpen size={20} color="var(--text-secondary)" />
+                        </div>
+                      )}
+                      <div>
+                        <div style={{ fontWeight: '600' }}>{book.title}</div>
+                        <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>{book.author}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+            
+            <div style={{ gridColumn: '1 / -1', height: '1px', backgroundColor: 'var(--border-color)', margin: '1rem 0' }} />
+
             <div className="input-group">
               <label className="input-label">{t('modal.titleLabel')}</label>
               <input required className="input-field" value={title} onChange={e => setTitle(e.target.value)} />

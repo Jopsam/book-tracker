@@ -1,7 +1,7 @@
 {
   "header": {
     "title": "Oasis Book Tracking",
-    "signOut": "Cerrar Sesi\u00f3n"
+    "signOut": "Cerrar Sesión"
   },
   "tabs": {
     "books": "Libros"
@@ -14,20 +14,20 @@
     "finished": "Terminados",
     "toRead": "Por Leer",
     "newBook": "Nuevo Libro",
-    "signOut": "Cerrar Sesi\u00f3n"
+    "signOut": "Cerrar Sesión"
   },
   "emptyStates": {
     "noResults": {
       "title": "No se encontraron libros",
-      "desc": "Intenta ajustar tu b\u00fasqueda."
+      "desc": "Intenta ajustar tu búsqueda."
     },
     "emptyLibrary": {
-      "title": "Tu biblioteca est\u00e1 vac\u00eda",
-      "desc": "\u00a1Agrega tu primer libro para comenzar a registrar tu viaje de lectura!"
+      "title": "Tu biblioteca está vacía",
+      "desc": "¡Agrega tu primer libro para comenzar a registrar tu viaje de lectura!"
     },
     "emptySection": {
-      "title": "No hay libros en esta secci\u00f3n",
-      "desc": "A\u00fan no has agregado ning\u00fan libro con este estado."
+      "title": "No hay libros en esta sección",
+      "desc": "Aún no has agregado ningún libro con este estado."
     }
   },
   "bookCard": {
@@ -37,89 +37,93 @@
     "registeredAt": "Registrado el"
   },
   "modal": {
-    "addTitle": "A\u00f1adir Libro",
+    "addTitle": "Añadir Libro",
     "editTitle": "Editar Libro",
-    "titlePlaceholder": "T\u00edtulo",
+    "titlePlaceholder": "Título",
     "authorPlaceholder": "Autor",
     "statusLabel": "Estado",
     "selectStatus": "Seleccionar estado",
     "reading": "Leyendo",
     "finished": "Terminado",
     "toRead": "Por Leer",
-    "ratingLabel": "Calificaci\u00f3n",
-    "notesLabel": "Notas Personales / Rese\u00f1a",
-    "notesPlaceholder": "\u00bfQu\u00e9 te pareci\u00f3 este libro?",
+    "ratingLabel": "Calificación",
+    "notesLabel": "Notas Personales / Reseña",
+    "notesPlaceholder": "¿Qué te pareció este libro?",
     "cancel": "Cancelar",
     "save": "Guardar Libro",
-    "titleLabel": "T\u00edtulo",
+    "titleLabel": "Título",
     "authorLabel": "Autor (opcional)",
     "statusToRead": "Por Leer",
     "statusReading": "Leyendo",
     "statusFinished": "Terminado",
-    "progressLabel": "Progreso Actual (Cap\u00edtulo/P\u00e1gina)",
-    "progressPlaceholder": "Ej. Cap\u00edtulo 4, P\u00e1gina 120",
+    "progressLabel": "Progreso Actual (Capítulo/Página)",
+    "progressPlaceholder": "Ej. Capítulo 4, Página 120",
     "saving": "Buscando portada y guardando...",
-    "saveBtn": "Guardar Libro"
+    "saveBtn": "Guardar Libro",
+    "googleBooksSearchLabel": "Auto-completar desde Google Books",
+    "googleBooksPlaceholder": "Escribe el nombre de un libro..."
   },
   "auth": {
     "welcomeBack": "Bienvenido de nuevo",
-    "signInDesc": "Inicia sesi\u00f3n para continuar tu viaje de lectura",
+    "signInDesc": "Inicia sesión para continuar tu viaje de lectura",
     "createAccount": "Crear Cuenta",
-    "signUpDesc": "\u00danete a Oasis y registra tus lecturas",
-    "email": "Direcci\u00f3n de correo electr\u00f3nico",
-    "password": "Contrase\u00f1a",
+    "signUpDesc": "Únete a Oasis y registra tus lecturas",
+    "email": "Dirección de correo electrónico",
+    "password": "Contraseña",
     "loading": "Cargando...",
-    "signIn": "Iniciar Sesi\u00f3n",
+    "signIn": "Iniciar Sesión",
     "signUp": "Registrarse",
-    "noAccount": "\u00bfNo tienes una cuenta?",
-    "hasAccount": "\u00bfYa tienes una cuenta?",
-    "accountCreated": "\u00a1Cuenta creada!",
-    "welcomeAdd": "Bienvenido a Oasis Book Tracking. A\u00f1ade algunos libros para comenzar.",
-    "signedOut": "Sesi\u00f3n cerrada",
-    "seeYou": "\u00a1Hasta la pr\u00f3xima!",
-    "errorDefault": "Error de autenticaci\u00f3n",
-    "welcomeBackTitle": "\u00a1Bienvenido de nuevo!",
-    "welcomeBackDesc": "Has iniciado sesi\u00f3n con \u00e9xito en tu cuenta.",
-    "checkEmailDesc": "Por favor, revisa tu correo electr\u00f3nico para ver el enlace de confirmaci\u00f3n.",
-    "authErrorTitle": "Error de Autenticaci\u00f3n",
+    "noAccount": "¿No tienes una cuenta?",
+    "hasAccount": "¿Ya tienes una cuenta?",
+    "accountCreated": "¡Cuenta creada!",
+    "welcomeAdd": "Bienvenido a Oasis Book Tracking. Añade algunos libros para comenzar.",
+    "signedOut": "Sesión cerrada",
+    "seeYou": "¡Hasta la próxima!",
+    "errorDefault": "Error de autenticación",
+    "welcomeBackTitle": "¡Bienvenido de nuevo!",
+    "welcomeBackDesc": "Has iniciado sesión con éxito en tu cuenta.",
+    "checkEmailDesc": "Por favor, revisa tu correo electrónico para ver el enlace de confirmación.",
+    "authErrorTitle": "Error de Autenticación",
     "backToHome": "Volver al Inicio",
     "processing": "Procesando...",
     "signUpBtn": "Registrarse",
-    "signUpLink": "Reg\u00edstrate",
-    "signInLink": "Inicia sesi\u00f3n"
+    "signUpLink": "Regístrate",
+    "signInLink": "Inicia sesión"
   },
   "notifs": {
-    "bookAdded": "\u00a1Libro a\u00f1adido exitosamente!",
-    "bookUpdated": "\u00a1Libro actualizado exitosamente!",
-    "bookDeleted": "\u00a1Libro eliminado exitosamente!",
+    "bookAdded": "¡Libro añadido exitosamente!",
+    "bookUpdated": "¡Libro actualizado exitosamente!",
+    "bookDeleted": "¡Libro eliminado exitosamente!",
     "errorLoading": "Error al cargar libros",
-    "errorAdding": "Error al a\u00f1adir libro",
+    "errorAdding": "Error al añadir libro",
     "errorUpdating": "Error al actualizar libro",
     "errorDeleting": "Error al eliminar libro",
-    "confirmDelete": "\u00bfEst\u00e1s seguro de que deseas eliminar este libro?",
+    "confirmDelete": "¿Estás seguro de que deseas eliminar este libro?",
     "bookUpdatedDesc": "Tus cambios han sido guardados en tu biblioteca.",
-    "bookAddedDesc": "El nuevo libro ya est\u00e1 disponible en tu biblioteca.",
-    "errorDeletingDesc": "No pudimos eliminar este libro. Por favor, int\u00e9ntalo de nuevo.",
-    "bookDeletedDesc": "El libro fue eliminado permanentemente de tu biblioteca."
+    "bookAddedDesc": "El nuevo libro ya está disponible en tu biblioteca.",
+    "errorDeletingDesc": "No pudimos eliminar este libro. Por favor, inténtalo de nuevo.",
+    "bookDeletedDesc": "El libro fue eliminado permanentemente de tu biblioteca.",
+    "bookFound": "Libro Encontrado",
+    "bookFoundDesc": "¡Metadatos auto-completados con éxito!"
   },
   "emptyState": {
     "searchTitle": "No se encontraron coincidencias",
     "searchDesc": "No pudimos encontrar libros que coincidan con \"{{query}}\".",
-    "toReadTitle": "Tu lista de deseos est\u00e1 vac\u00eda",
-    "toReadDesc": "A\u00fan no has marcado ning\u00fan libro para leer.",
-    "readingTitle": "\u00bfNo est\u00e1s leyendo nada?",
-    "readingDesc": "Empieza un libro y haz un seguimiento de tu progreso aqu\u00ed.",
+    "toReadTitle": "Tu lista de deseos está vacía",
+    "toReadDesc": "Aún no has marcado ningún libro para leer.",
+    "readingTitle": "¿No estás leyendo nada?",
+    "readingDesc": "Empieza un libro y haz un seguimiento de tu progreso aquí.",
     "readTitle": "No hay libros terminados",
-    "readDesc": "Los libros que termines aparecer\u00e1n aqu\u00ed.",
+    "readDesc": "Los libros que termines aparecerán aquí.",
     "allTitle": "Tu biblioteca es un pueblo fantasma",
-    "allDesc": "A\u00fan no has a\u00f1adido ning\u00fan libro.",
-    "addFirst": "A\u00f1ade tu primer libro"
+    "allDesc": "Aún no has añadido ningún libro.",
+    "addFirst": "Añade tu primer libro"
   },
   "filters": {
     "allBooks": "Todos",
     "toRead": "Por Leer",
     "reading": "Leyendo",
     "finished": "Terminados",
-    "searchPlaceholder": "Buscar por t\u00edtulo o autor..."
+    "searchPlaceholder": "Buscar por título o autor..."
   }
 }
