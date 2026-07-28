@@ -28,7 +28,7 @@ export default function Auth() {
       if (isLogin) {
         const { error } = await supabase.auth.signInWithPassword({ email, password })
         if (error) throw error
-        sileo.success({ title: 'Welcome back!' })
+        sileo.success({ title: 'Welcome back!', description: 'You have successfully signed in to your account.' })
       } else {
         const { data, error } = await supabase.auth.signUp({ email, password })
         if (error) throw error
@@ -36,11 +36,10 @@ export default function Auth() {
         if (data?.user && !data?.session) {
           sileo.info({ title: 'Account created!', description: 'Please check your email for the confirmation link.' })
         } else {
-          sileo.success({ title: 'Account created successfully!' })
+          sileo.success({ title: 'Account created!', description: 'Welcome to Oasis Book Tracking. Add some books to begin.' })
         }
-      }
     } catch (err) {
-      sileo.error({ title: err.message })
+      sileo.error({ title: 'Authentication Error', description: err.message })
     } finally {
       setLoading(false)
     }

@@ -97,7 +97,7 @@ export default function Dashboard() {
         setIsSaving(false)
         return
       }
-      sileo.success({ title: 'Book updated successfully!' })
+      sileo.success({ title: 'Book updated', description: 'Your changes have been saved to your library.' })
     } else {
       const { error } = await supabase.from('books').insert([bookData])
       if (error) {
@@ -106,7 +106,7 @@ export default function Dashboard() {
         setIsSaving(false)
         return
       }
-      sileo.success({ title: 'Book added successfully!' })
+      sileo.success({ title: 'Book added', description: 'The new book is now available in your library.' })
     }
 
     resetForm()
@@ -118,9 +118,9 @@ export default function Dashboard() {
     if (window.confirm('Are you sure you want to delete this book?')) {
       const { error } = await supabase.from('books').delete().eq('id', id)
       if (error) {
-        sileo.error({ title: 'Failed to delete book' })
+        sileo.error({ title: 'Action failed', description: 'We could not delete this book. Please try again.' })
       } else {
-        sileo.success({ title: 'Book deleted' })
+        sileo.success({ title: 'Book deleted', description: 'The book was permanently removed from your library.' })
         fetchBooks()
       }
     }
