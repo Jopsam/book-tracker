@@ -316,7 +316,7 @@ const fetchBooks = async () => {
             inset: 0,
             backgroundColor: 'rgba(0, 0, 0, 0.6)',
             backdropFilter: 'blur(8px)',
-            zIndex: 50,
+            zIndex: 40,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
