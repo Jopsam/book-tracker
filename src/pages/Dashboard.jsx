@@ -208,10 +208,10 @@ export default function Dashboard() {
         <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
           <LanguageSwitcher />
           <button onClick={() => setShowForm(!showForm)} className="btn btn-primary">
-            <Plus size={20} /> New Book
+            <Plus size={20} /> {t('actions.newBook')}
           </button>
           <button onClick={() => supabase.auth.signOut()} className="btn btn-outline">
-            <LogOut size={20} /> Sign Out
+            <LogOut size={20} /> {t('actions.signOut')}
           </button>
         </div>
       </header>
