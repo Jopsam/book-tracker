@@ -203,11 +203,34 @@ export default function Dashboard() {
             </div>
             <div className="input-group" style={{ gridColumn: status === 'to_read' ? '1 / -1' : 'auto' }}>
               <label className="input-label">Status</label>
-              <select className="input-field" value={status} onChange={e => setStatus(e.target.value)}>
-                <option value="reading">Reading</option>
-                <option value="to_read">To Read</option>
-                <option value="read">Finished</option>
-              </select>
+              <div style={{ display: 'flex', gap: '0.25rem', backgroundColor: 'rgba(0,0,0,0.2)', padding: '0.25rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-color)' }}>
+                {[
+                  { value: 'reading', label: 'Reading' },
+                  { value: 'to_read', label: 'To Read' },
+                  { value: 'read', label: 'Finished' }
+                ].map(opt => (
+                  <button
+                    key={opt.value}
+                    type="button"
+                    onClick={() => setStatus(opt.value)}
+                    style={{
+                      flex: 1,
+                      padding: '0.5rem',
+                      background: status === opt.value ? 'var(--primary)' : 'transparent',
+                      color: status === opt.value ? 'white' : 'var(--text-secondary)',
+                      border: 'none',
+                      borderRadius: 'var(--radius-sm)',
+                      cursor: 'pointer',
+                      fontSize: '0.875rem',
+                      fontWeight: '500',
+                      transition: 'var(--transition)',
+                      boxShadow: status === opt.value ? '0 2px 4px rgba(0,0,0,0.2)' : 'none'
+                    }}
+                  >
+                    {opt.label}
+                  </button>
+                ))}
+              </div>
             </div>
             {status === 'reading' && (
               <div className="input-group">
