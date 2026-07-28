@@ -30,7 +30,7 @@ export default function Landing() {
             <div style={{ padding: '0.5rem', backgroundColor: 'rgba(99, 102, 241, 0.1)', borderRadius: 'var(--radius-md)' }}>
               <BookOpen size={24} />
             </div>
-            <span className="h3" style={{ fontWeight: '700', letterSpacing: '-0.02em', margin: 0 }}>Oasis</span>
+            <span className="h3" style={{ fontWeight: '700', letterSpacing: '-0.02em', margin: 0 }}>Oasis Book tracking</span>
           </div>
           <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
             <Link to="/auth" className="btn btn-outline" style={{ borderRadius: 'var(--radius-full)', padding: '0.5rem 1.5rem' }}>
