@@ -260,7 +260,7 @@ export default function Dashboard() {
           author: item.author_name ? item.author_name.join(', ') : '',
           coverUrl: item.cover_i ? `https://covers.openlibrary.org/b/id/${item.cover_i}-L.jpg` : '',
           pageCount: item.number_of_pages_median || '',
-          iaId: item.has_fulltext && item.ia ? item.ia[0] : ''
+          iaId: item.has_fulltext && item.ia ? (item.ia.find(id => !id.startsWith('lp_') && !id.includes('librivox') && !id.startsWith('audio_')) || item.ia[0]) : ''
         })))
       } else {
         setSearchResults([])
