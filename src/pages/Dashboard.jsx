@@ -624,9 +624,9 @@ const fetchBooks = async () => {
               </div>
             </div>
             {status === 'reading' && (
-              <>
-                <div className="input-group">
-                  <label className="input-label">{t('modal.progressLabel')}</label>
+              <div className="input-group" style={{ gridColumn: '1 / -1' }}>
+                <label className="input-label">{t('modal.progressLabel')} / {t('modal.totalPagesLabel')}</label>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                   <input
                     type="number"
                     min="0"
@@ -634,10 +634,9 @@ const fetchBooks = async () => {
                     onChange={(e) => setProgress(e.target.value)}
                     className="input-field"
                     placeholder={t('modal.progressPlaceholder')}
+                    style={{ flex: 1 }}
                   />
-                </div>
-                <div className="input-group">
-                  <label className="input-label">{t('modal.totalPagesLabel')}</label>
+                  <span style={{ color: 'var(--text-secondary)', fontSize: '1.25rem', fontWeight: '300' }}>/</span>
                   <input
                     type="number"
                     min="1"
@@ -645,9 +644,10 @@ const fetchBooks = async () => {
                     onChange={(e) => setPageCount(e.target.value)}
                     className="input-field"
                     placeholder={t('modal.totalPagesPlaceholder')}
+                    style={{ flex: 1 }}
                   />
                 </div>
-              </>
+              </div>
             )}
             
             {status === 'read' && (
