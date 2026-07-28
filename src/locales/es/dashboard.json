@@ -60,7 +60,7 @@
     "progressPlaceholder": "Ej. Capítulo 4, Página 120",
     "saving": "Buscando portada y guardando...",
     "saveBtn": "Guardar Libro",
-    "googleBooksSearchLabel": "Auto-completar desde Google Books",
+    "googleBooksSearchLabel": "Auto-completar desde Open Library",
     "googleBooksPlaceholder": "Escribe el nombre de un libro..."
   },
   "auth": {
