@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../context/AuthContext'
 import { LogOut, Plus, Trash2, Edit2, Book, Image as ImageIcon, BookOpen, Star } from 'lucide-react'
+import { toast } from 'sonner'
 
 export default function Dashboard() {
   const { user } = useAuth()
@@ -22,7 +23,6 @@ export default function Dashboard() {
     return () => { document.body.style.overflow = 'auto' }
   }, [showForm])
   const [isSaving, setIsSaving] = useState(false)
-  const [formError, setFormError] = useState(null)
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [status, setStatus] = useState('to_read')
@@ -71,7 +71,6 @@ export default function Dashboard() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setIsSaving(true)
-    setFormError(null)
 
     const bookData = { 
       title, 
@@ -94,18 +93,20 @@ export default function Dashboard() {
       const { error } = await supabase.from('books').update(bookData).eq('id', editingId)
       if (error) {
         console.error('Error updating:', error)
-        setFormError(error.message)
+        toast.error('Failed to update book: ' + error.message)
         setIsSaving(false)
         return
       }
+      toast.success('Book updated successfully!')
     } else {
       const { error } = await supabase.from('books').insert([bookData])
       if (error) {
         console.error('Error inserting:', error)
-        setFormError(error.message)
+        toast.error('Failed to add book: ' + error.message)
         setIsSaving(false)
         return
       }
+      toast.success('Book added successfully!')
     }
 
     resetForm()
@@ -115,8 +116,13 @@ export default function Dashboard() {
 
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this book?')) {
-      await supabase.from('books').delete().eq('id', id)
-      fetchBooks()
+      const { error } = await supabase.from('books').delete().eq('id', id)
+      if (error) {
+        toast.error('Failed to delete book')
+      } else {
+        toast.success('Book deleted')
+        fetchBooks()
+      }
     }
   }
 
@@ -140,7 +146,6 @@ export default function Dashboard() {
     setProgress('')
     setRating(0)
     setNotes('')
-    setFormError(null)
   }
 
   const getStatusBadge = (s) => {
@@ -235,11 +240,6 @@ export default function Dashboard() {
             boxShadow: 'var(--shadow-lg)'
           }}>
             <h3 className="h3" style={{ marginBottom: '2rem' }}>{editingId ? 'Edit Book' : 'Add Book'}</h3>
-            {formError && (
-            <div style={{ padding: '0.75rem', backgroundColor: 'rgba(239, 68, 68, 0.1)', border: '1px solid var(--danger)', color: 'var(--danger)', borderRadius: 'var(--radius-md)', marginBottom: '1rem', fontSize: '0.875rem' }}>
-              Error: {formError}
-            </div>
-          )}
           <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '1rem', gridTemplateColumns: '1fr 1fr' }}>
             <div className="input-group">
               <label className="input-label">Title</label>

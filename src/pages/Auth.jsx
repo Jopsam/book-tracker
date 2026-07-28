@@ -3,6 +3,7 @@ import { supabase } from '../lib/supabase'
 import { useAuth } from '../context/AuthContext'
 import { useNavigate, Link } from 'react-router-dom'
 import { ArrowLeft } from 'lucide-react'
+import { toast } from 'sonner'
 
 export default function Auth() {
   const { user } = useAuth()
@@ -12,8 +13,6 @@ export default function Auth() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isLogin, setIsLogin] = useState(true)
-  const [error, setError] = useState(null)
-  const [message, setMessage] = useState(null)
 
   useEffect(() => {
     if (user) {
@@ -24,23 +23,24 @@ export default function Auth() {
   const handleAuth = async (e) => {
     e.preventDefault()
     setLoading(true)
-    setError(null)
-    setMessage(null)
     
     try {
       if (isLogin) {
         const { error } = await supabase.auth.signInWithPassword({ email, password })
         if (error) throw error
+        toast.success('Welcome back!')
       } else {
         const { data, error } = await supabase.auth.signUp({ email, password })
         if (error) throw error
         
         if (data?.user && !data?.session) {
-          setMessage('Account created! Please check your email for the confirmation link.')
+          toast.info('Account created! Please check your email for the confirmation link.')
+        } else {
+          toast.success('Account created successfully!')
         }
       }
-    } catch (error) {
-      setError(error.message)
+    } catch (err) {
+      toast.error(err.message)
     } finally {
       setLoading(false)
     }
@@ -55,18 +55,6 @@ export default function Auth() {
         <h2 className="h2" style={{ marginBottom: '1.5rem', textAlign: 'center' }}>
           {isLogin ? 'Sign In' : 'Create Account'}
         </h2>
-        
-        {error && (
-          <div style={{ padding: '0.75rem', backgroundColor: 'rgba(239, 68, 68, 0.1)', border: '1px solid var(--danger)', color: 'var(--danger)', borderRadius: 'var(--radius-md)', marginBottom: '1rem', fontSize: '0.875rem' }}>
-            {error}
-          </div>
-        )}
-
-        {message && (
-          <div style={{ padding: '0.75rem', backgroundColor: 'rgba(16, 185, 129, 0.1)', border: '1px solid var(--accent)', color: 'var(--accent)', borderRadius: 'var(--radius-md)', marginBottom: '1rem', fontSize: '0.875rem' }}>
-            {message}
-          </div>
-        )}
 
         <form onSubmit={handleAuth}>
           <div className="input-group">
@@ -98,7 +86,7 @@ export default function Auth() {
           {isLogin ? "Don't have an account?" : 'Already have an account?'}
           <button 
             type="button" 
-            onClick={() => { setIsLogin(!isLogin); setError(null); setMessage(null); }}
+            onClick={() => { setIsLogin(!isLogin); }}
             style={{ background: 'none', border: 'none', color: 'var(--primary)', cursor: 'pointer', marginLeft: '0.5rem', fontWeight: '500' }}
           >
             {isLogin ? 'Sign up' : 'Sign in'}
