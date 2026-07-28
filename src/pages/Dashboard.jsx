@@ -1,5 +1,173 @@
 import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+
+
+const BookCard = ({ book, handleEdit, handleDelete, getStatusBadge, t }) => {
+  const [imageLoaded, setImageLoaded] = useState(false)
+  
+  // Try to parse progress and pageCount to render a progress bar
+  const progressNum = parseInt(book.progress, 10)
+  const pageCountNum = parseInt(book.page_count, 10)
+  const showProgressBar = !isNaN(progressNum) && !isNaN(pageCountNum) && pageCountNum > 0
+
+  return (
+    <motion.div 
+      layout
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.9 }}
+      transition={{ duration: 0.25 }}
+      className="glass-panel" 
+      style={{ display: 'flex', flexDirection: 'column', overflow: 'hidden' }}
+    >
+    
+    {/* Cover Image Area */}
+    <div style={{ 
+      height: '240px', 
+      backgroundColor: 'rgba(0,0,0,0.4)', 
+      display: 'flex', 
+      alignItems: 'center', 
+      justifyContent: 'center',
+      borderBottom: '1px solid var(--border-color)',
+      position: 'relative',
+      overflow: 'hidden'
+    }}>
+      {book.cover_url ? (
+        <>
+          <div style={{
+            position: 'absolute',
+            inset: 0,
+            backgroundImage: `url(${book.cover_url})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            filter: 'blur(10px)',
+            opacity: 0.4,
+            zIndex: 0
+          }} />
+          
+          {/* Loading Skeleton */}
+          {!imageLoaded && (
+            <div style={{
+              position: 'absolute',
+              inset: 0,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              zIndex: 1,
+              backgroundColor: 'rgba(255,255,255,0.05)',
+              animation: 'pulse 1.5s infinite'
+            }}>
+              <BookOpen size={32} color="rgba(255,255,255,0.2)" />
+            </div>
+          )}
+          
+          <img 
+            src={book.cover_url} 
+            alt={`Cover of ${book.title}`}
+            onLoad={() => setImageLoaded(true)}
+            style={{ 
+              height: '90%', 
+              width: 'auto', 
+              objectFit: 'contain', 
+              zIndex: 2, 
+              boxShadow: '0 4px 12px rgba(0,0,0,0.5)',
+              opacity: imageLoaded ? 1 : 0,
+              transition: 'opacity 0.3s ease'
+            }}
+          />
+        </>
+      ) : (
+        <div style={{ color: 'var(--primary)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', opacity: 0.6 }}>
+          <BookOpen size={48} />
+          <span style={{ fontSize: '1rem', fontWeight: '600', color: 'var(--text-secondary)' }}>Oasis</span>
+        </div>
+      )}
+      
+      {/* Status Badge floating on cover */}
+      <div style={{ 
+        position: 'absolute', 
+        top: '1rem', 
+        right: '1rem', 
+        backgroundColor: 'rgba(26, 31, 46, 0.8)',
+        backdropFilter: 'blur(4px)',
+        padding: '0.25rem 0.75rem',
+        borderRadius: 'var(--radius-full)',
+        border: '1px solid var(--border-color)',
+        zIndex: 10
+      }}>
+        {getStatusBadge(book.status)}
+      </div>
+    </div>
+
+    {/* Book Details */}
+    <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
+      <div style={{ flex: 1 }}>
+        <h4 style={{ fontSize: '1.125rem', fontWeight: '600', margin: '0 0 0.25rem 0', padding: 0 }}>{book.title}</h4>
+        <div className="text-muted" style={{ fontSize: '0.875rem', margin: '0 0 1rem 0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <span>{book.author ? book.author : t('bookCard.noAuthor')}</span>
+          {book.rating && (
+            <span style={{ display: 'flex', gap: '2px' }}>
+              {[1, 2, 3, 4, 5].map(star => (
+                <Star key={star} size={14} color={star <= book.rating ? '#fbbf24' : 'var(--text-secondary)'} fill={star <= book.rating ? '#fbbf24' : 'none'} opacity={star <= book.rating ? 1 : 0.3} />
+              ))}
+            </span>
+          )}
+        </div>
+        
+        {((book.status === 'reading' && book.progress) || book.status !== 'reading') && (
+          <div style={{ marginTop: '1rem', backgroundColor: 'rgba(0,0,0,0.2)', padding: '0.75rem', borderRadius: 'var(--radius-sm)' }}>
+            {book.status === 'reading' ? (
+              <div>
+                <p className="text-muted" style={{ margin: '0 0 0.5rem 0', fontSize: '0.875rem', display: 'flex', justifyContent: 'space-between' }}>
+                  <span>{t('bookCard.progress')}</span>
+                  <strong style={{ color: 'var(--text-primary)' }}>
+                    {book.progress} {book.page_count ? `/ ${book.page_count}` : ''}
+                  </strong>
+                </p>
+                {showProgressBar && (
+                  <div style={{ width: '100%', height: '6px', backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: '999px', overflow: 'hidden' }}>
+                    <div style={{ 
+                      height: '100%', 
+                      backgroundColor: 'var(--primary)', 
+                      width: `${Math.min(100, Math.max(0, (progressNum / pageCountNum) * 100))}%`,
+                      transition: 'width 0.5s ease-out'
+                    }} />
+                  </div>
+                )}
+              </div>
+            ) : (
+              <p className="text-muted" style={{ margin: 0, fontSize: '0.875rem', display: 'flex', justifyContent: 'space-between' }}>
+                <span>{book.status === 'read' || book.status === 'finished' ? t('bookCard.finishedAt') : t('bookCard.registeredAt')}</span>
+                <strong style={{ color: 'var(--text-primary)' }}>{new Date(book.created_at).toLocaleDateString()}</strong>
+              </p>
+            )}
+          </div>
+        )}
+        
+        {book.notes && (
+          <div style={{ marginTop: '1rem', padding: '0.75rem', backgroundColor: 'rgba(99, 102, 241, 0.05)', borderLeft: '2px solid var(--primary)', borderRadius: '0 var(--radius-sm) var(--radius-sm) 0' }}>
+            <p style={{ margin: 0, fontSize: '0.875rem', color: 'var(--text-secondary)', fontStyle: 'italic', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+              "{book.notes}"
+            </p>
+          </div>
+        )}
+      </div>
+
+      {/* Actions Footer */}
+      <div style={{ display: 'flex', gap: '0.5rem', marginTop: '1.5rem', paddingTop: '1rem', borderTop: '1px solid var(--border-color)' }}>
+        <button onClick={() => handleEdit(book)} style={{ background: 'none', border: 'none', color: 'var(--text-secondary)', cursor: 'pointer', padding: '0.25rem', transition: 'var(--transition)' }}>
+          <Edit2 size={18} />
+        </button>
+        <button onClick={() => handleDelete(book.id)} style={{ background: 'none', border: 'none', color: 'var(--danger)', cursor: 'pointer', padding: '0.25rem', transition: 'var(--transition)' }}>
+          <Trash2 size={18} />
+        </button>
+      </div>
+    </div>
+  </motion.div>
+  )
+}
+
+
 import { createPortal } from 'react-dom'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../context/AuthContext'
@@ -566,123 +734,7 @@ const fetchBooks = async () => {
               </motion.div>
             )}
             
-            {filteredBooks.map(book => (
-              <motion.div 
-                layout
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.25 }}
-                key={book.id} 
-                className="glass-panel" 
-                style={{ display: 'flex', flexDirection: 'column', overflow: 'hidden' }}
-              >
-              
-              {/* Cover Image Area */}
-              <div style={{ 
-                height: '240px', 
-                backgroundColor: 'rgba(0,0,0,0.4)', 
-                display: 'flex', 
-                alignItems: 'center', 
-                justifyContent: 'center',
-                borderBottom: '1px solid var(--border-color)',
-                position: 'relative',
-                overflow: 'hidden'
-              }}>
-                {book.cover_url ? (
-                  <>
-                    <div style={{
-                      position: 'absolute',
-                      inset: 0,
-                      backgroundImage: `url(${book.cover_url})`,
-                      backgroundSize: 'cover',
-                      backgroundPosition: 'center',
-                      filter: 'blur(10px)',
-                      opacity: 0.4,
-                      zIndex: 0
-                    }} />
-                    <img 
-                      src={book.cover_url} 
-                      alt={`Cover of ${book.title}`}
-                      style={{ height: '90%', width: 'auto', objectFit: 'contain', zIndex: 1, boxShadow: '0 4px 12px rgba(0,0,0,0.5)' }}
-                    />
-                  </>
-                ) : (
-                  <div style={{ color: 'var(--primary)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', opacity: 0.6 }}>
-                    <BookOpen size={48} />
-                    <span style={{ fontSize: '1rem', fontWeight: '600', color: 'var(--text-secondary)' }}>Oasis</span>
-                  </div>
-                )}
-                
-                {/* Status Badge floating on cover */}
-                <div style={{ 
-                  position: 'absolute', 
-                  top: '1rem', 
-                  right: '1rem', 
-                  backgroundColor: 'rgba(26, 31, 46, 0.8)',
-                  backdropFilter: 'blur(4px)',
-                  padding: '0.25rem 0.75rem',
-                  borderRadius: 'var(--radius-full)',
-                  border: '1px solid var(--border-color)',
-                  zIndex: 10
-                }}>
-                  {getStatusBadge(book.status)}
-                </div>
-              </div>
-
-              {/* Book Details */}
-              <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
-                <div style={{ flex: 1 }}>
-                  <h4 style={{ fontSize: '1.125rem', fontWeight: '600', margin: '0 0 0.25rem 0', padding: 0 }}>{book.title}</h4>
-                  <div className="text-muted" style={{ fontSize: '0.875rem', margin: '0 0 1rem 0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span>{book.author ? book.author : t('bookCard.noAuthor')}</span>
-                    {book.rating && (
-                      <span style={{ display: 'flex', gap: '2px' }}>
-                        {[1, 2, 3, 4, 5].map(star => (
-                          <Star key={star} size={14} color={star <= book.rating ? '#fbbf24' : 'var(--text-secondary)'} fill={star <= book.rating ? '#fbbf24' : 'none'} opacity={star <= book.rating ? 1 : 0.3} />
-                        ))}
-                      </span>
-                    )}
-                  </div>
-                  
-                  {((book.status === 'reading' && book.progress) || book.status !== 'reading') && (
-                    <div style={{ marginTop: '1rem', backgroundColor: 'rgba(0,0,0,0.2)', padding: '0.75rem', borderRadius: 'var(--radius-sm)' }}>
-                      {book.status === 'reading' ? (
-                        <p className="text-muted" style={{ margin: 0, fontSize: '0.875rem', display: 'flex', justifyContent: 'space-between' }}>
-                          <span>{t('bookCard.progress')}</span>
-                          <strong style={{ color: 'var(--text-primary)' }}>{book.progress}</strong>
-                        </p>
-                      ) : (
-                        <p className="text-muted" style={{ margin: 0, fontSize: '0.875rem', display: 'flex', justifyContent: 'space-between' }}>
-                          <span>{book.status === 'read' ? t('bookCard.finishedAt') : t('bookCard.registeredAt')}</span>
-                          <strong style={{ color: 'var(--text-primary)' }}>{new Date(book.created_at).toLocaleDateString()}</strong>
-                        </p>
-                      )}
-                    </div>
-                  )}
-                  
-                  {book.notes && (
-                    <div style={{ marginTop: '1rem', padding: '0.75rem', backgroundColor: 'rgba(99, 102, 241, 0.05)', borderLeft: '2px solid var(--primary)', borderRadius: '0 var(--radius-sm) var(--radius-sm) 0' }}>
-                      <p style={{ margin: 0, fontSize: '0.875rem', color: 'var(--text-secondary)', fontStyle: 'italic', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-                        "{book.notes}"
-                      </p>
-                    </div>
-                  )}
-                </div>
-
-                {/* Actions Footer */}
-                <div style={{ display: 'flex', gap: '0.5rem', marginTop: '1.5rem', paddingTop: '1rem', borderTop: '1px solid var(--border-color)' }}>
-                  <button onClick={() => handleEdit(book)} style={{ background: 'none', border: 'none', color: 'var(--text-secondary)', cursor: 'pointer', padding: '0.25rem', transition: 'var(--transition)' }}>
-                    <Edit2 size={18} />
-                  </button>
-                  <button onClick={() => handleDelete(book.id)} style={{ background: 'none', border: 'none', color: 'var(--danger)', cursor: 'pointer', padding: '0.25rem', transition: 'var(--transition)' }}>
-                    <Trash2 size={18} />
-                  </button>
-                </div>
-              </div>
-
-              </motion.div>
-            ))}
+            {filteredBooks.map(book => (<BookCard key={book.id} book={book} handleEdit={handleEdit} handleDelete={handleDelete} getStatusBadge={getStatusBadge} t={t} />))}
           </AnimatePresence>
         </motion.div>
       )}
