@@ -764,7 +764,7 @@ const fetchBooks = async () => {
             </div>
             <div style={{ flex: 1, width: '100%', backgroundColor: '#f5f5f5' }}>
               <iframe 
-                src={`https://archive.org/stream/${readingBook.ia_id}?ui=embed`}
+                src={`https://archive.org/embed/${readingBook.ia_id}`}
                 width="100%" 
                 height="100%" 
                 frameBorder="0" 
