@@ -208,10 +208,10 @@ export default function Dashboard() {
         <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
           <LanguageSwitcher />
           <button onClick={() => setShowForm(!showForm)} className="btn btn-primary">
-            <Plus size={20} /> {t('actions.newBook')}
+            <Plus size={20} /> <span className="hide-on-mobile">{t('actions.newBook')}</span>
           </button>
           <button onClick={() => supabase.auth.signOut()} className="btn btn-outline">
-            <LogOut size={20} /> {t('actions.signOut')}
+            <LogOut size={20} /> <span className="hide-on-mobile">{t('actions.signOut')}</span>
           </button>
         </div>
       </header>
@@ -291,7 +291,7 @@ export default function Dashboard() {
             boxShadow: 'var(--shadow-lg)'
           }}>
             <h3 className="h3" style={{ marginBottom: '2rem' }}>{editingId ? t('modal.editTitle') : t('modal.addTitle')}</h3>
-          <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '1rem', gridTemplateColumns: '1fr 1fr' }}>
+          <form onSubmit={handleSubmit} className="modal-form-grid">
             <div className="input-group">
               <label className="input-label">{t('modal.titleLabel')}</label>
               <input required className="input-field" value={title} onChange={e => setTitle(e.target.value)} />

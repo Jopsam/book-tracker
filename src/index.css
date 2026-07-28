@@ -265,3 +265,14 @@ select.input-field option:hover {
     display: inline-block !important; /* or flex/block depending on element */
   }
 }
+
+.modal-form-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 768px) {
+  .modal-form-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
