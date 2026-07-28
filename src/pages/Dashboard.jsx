@@ -160,6 +160,14 @@ export default function Dashboard() {
   }
 
   const getEmptyStateContent = () => {
+    if (searchQuery.trim() !== '') {
+      return { 
+        icon: <Search size={48} />, 
+        title: "No matches found", 
+        desc: `We couldn't find any books matching "${searchQuery}".`
+      }
+    }
+
     switch (activeTab) {
       case 'to_read':
         return { icon: <LibraryBig size={48} />, title: "Your wishlist is empty", desc: "You don't have any books marked to read yet." }
@@ -421,9 +429,11 @@ export default function Dashboard() {
                 <p className="text-muted" style={{ margin: 0, maxWidth: '400px' }}>
                   {emptyState.desc}
                 </p>
-                <button onClick={() => setShowForm(true)} className="btn btn-primary" style={{ marginTop: '1rem' }}>
-                  <Plus size={20} /> Add your first book
-                </button>
+                {searchQuery.trim() === '' && (
+                  <button onClick={() => setShowForm(true)} className="btn btn-primary" style={{ marginTop: '1rem' }}>
+                    <Plus size={20} /> Add your first book
+                  </button>
+                )}
               </motion.div>
             )}
             
