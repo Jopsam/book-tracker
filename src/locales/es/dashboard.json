@@ -34,7 +34,8 @@
     "progress": "Progreso",
     "noAuthor": "Sin autor registrado",
     "finishedAt": "Terminado el",
-    "registeredAt": "Registrado el"
+    "registeredAt": "Registrado el",
+    "of": "de"
   },
   "modal": {
     "addTitle": "Añadir Libro",
@@ -56,8 +57,10 @@
     "statusToRead": "Por Leer",
     "statusReading": "Leyendo",
     "statusFinished": "Terminado",
-    "progressLabel": "Progreso Actual (Capítulo/Página)",
-    "progressPlaceholder": "Ej. Capítulo 4, Página 120",
+    "progressLabel": "Página Actual",
+    "progressPlaceholder": "Ej. 120",
+    "totalPagesLabel": "Total de Páginas",
+    "totalPagesPlaceholder": "Ej. 350",
     "saving": "Buscando portada y guardando...",
     "saveBtn": "Guardar Libro",
     "googleBooksSearchLabel": "Auto-completar desde Open Library",

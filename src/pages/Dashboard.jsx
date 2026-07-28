@@ -121,7 +121,7 @@ const BookCard = ({ book, handleEdit, handleDelete, getStatusBadge, t }) => {
                 <p className="text-muted" style={{ margin: '0 0 0.5rem 0', fontSize: '0.875rem', display: 'flex', justifyContent: 'space-between' }}>
                   <span>{t('bookCard.progress')}</span>
                   <strong style={{ color: 'var(--text-primary)' }}>
-                    {book.progress} {book.page_count ? `/ ${book.page_count}` : ''}
+                    {book.progress} {book.page_count ? `${t('bookCard.of')} ${book.page_count}` : ''}
                   </strong>
                 </p>
                 {showProgressBar && (
@@ -624,16 +624,30 @@ const fetchBooks = async () => {
               </div>
             </div>
             {status === 'reading' && (
-              <div className="input-group">
-                <label className="input-label">{t('modal.progressLabel')}</label>
-                <input
-                  type="text"
-                  value={progress}
-                  onChange={(e) => setProgress(e.target.value)}
-                  className="input-field"
-                  placeholder={t('modal.progressPlaceholder')}
-                />
-              </div>
+              <>
+                <div className="input-group">
+                  <label className="input-label">{t('modal.progressLabel')}</label>
+                  <input
+                    type="number"
+                    min="0"
+                    value={progress}
+                    onChange={(e) => setProgress(e.target.value)}
+                    className="input-field"
+                    placeholder={t('modal.progressPlaceholder')}
+                  />
+                </div>
+                <div className="input-group">
+                  <label className="input-label">{t('modal.totalPagesLabel')}</label>
+                  <input
+                    type="number"
+                    min="1"
+                    value={pageCount}
+                    onChange={(e) => setPageCount(e.target.value)}
+                    className="input-field"
+                    placeholder={t('modal.totalPagesPlaceholder')}
+                  />
+                </div>
+              </>
             )}
             
             {status === 'read' && (

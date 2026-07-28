@@ -34,7 +34,8 @@
     "progress": "Progress",
     "noAuthor": "No author registered",
     "finishedAt": "Finished at",
-    "registeredAt": "Registered at"
+    "registeredAt": "Registered at",
+    "of": "of"
   },
   "modal": {
     "addTitle": "Add Book",
@@ -56,8 +57,10 @@
     "statusToRead": "To Read",
     "statusReading": "Reading",
     "statusFinished": "Finished",
-    "progressLabel": "Current Progress (Chapter/Page)",
-    "progressPlaceholder": "e.g. Chapter 4, Page 120",
+    "progressLabel": "Current Page",
+    "progressPlaceholder": "e.g. 120",
+    "totalPagesLabel": "Total Pages",
+    "totalPagesPlaceholder": "e.g. 350",
     "saving": "Searching cover & saving...",
     "saveBtn": "Save Book",
     "googleBooksSearchLabel": "Auto-fill from Open Library",
