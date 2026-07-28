@@ -96,7 +96,11 @@
     "errorAdding": "Error al a\u00f1adir libro",
     "errorUpdating": "Error al actualizar libro",
     "errorDeleting": "Error al eliminar libro",
-    "confirmDelete": "\u00bfEst\u00e1s seguro de que deseas eliminar este libro?"
+    "confirmDelete": "\u00bfEst\u00e1s seguro de que deseas eliminar este libro?",
+    "bookUpdatedDesc": "Tus cambios han sido guardados en tu biblioteca.",
+    "bookAddedDesc": "El nuevo libro ya est\u00e1 disponible en tu biblioteca.",
+    "errorDeletingDesc": "No pudimos eliminar este libro. Por favor, int\u00e9ntalo de nuevo.",
+    "bookDeletedDesc": "El libro fue eliminado permanentemente de tu biblioteca."
   },
   "emptyState": {
     "searchTitle": "No se encontraron coincidencias",

@@ -96,7 +96,11 @@
     "errorAdding": "Error adding book",
     "errorUpdating": "Error updating book",
     "errorDeleting": "Error deleting book",
-    "confirmDelete": "Are you sure you want to delete this book?"
+    "confirmDelete": "Are you sure you want to delete this book?",
+    "bookUpdatedDesc": "Your changes have been saved to your library.",
+    "bookAddedDesc": "The new book is now available in your library.",
+    "errorDeletingDesc": "We could not delete this book. Please try again.",
+    "bookDeletedDesc": "The book was permanently removed from your library."
   },
   "emptyState": {
     "searchTitle": "No matches found",
