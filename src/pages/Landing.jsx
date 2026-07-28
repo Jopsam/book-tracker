@@ -120,18 +120,95 @@ export default function Landing() {
               <div style={{ width: '12px', height: '12px', borderRadius: '50%', backgroundColor: '#f59e0b' }}></div>
               <div style={{ width: '12px', height: '12px', borderRadius: '50%', backgroundColor: '#10b981' }}></div>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem', padding: '0 1rem 1rem 1rem' }}>
-              {[1, 2, 3].map(i => (
-                <div key={i} style={{ height: '300px', backgroundColor: 'rgba(255, 255, 255, 0.03)', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.05)', display: 'flex', flexDirection: 'column' }}>
-                  <div style={{ height: '60%', backgroundColor: 'rgba(0,0,0,0.2)', borderTopLeftRadius: '16px', borderTopRightRadius: '16px', position: 'relative' }}>
-                     <div style={{ position: 'absolute', top: '10px', right: '10px', width: '40px', height: '15px', borderRadius: '10px', backgroundColor: 'var(--primary)', opacity: 0.8 }}></div>
-                  </div>
-                  <div style={{ padding: '1rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                    <div style={{ height: '1rem', width: '80%', backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: '4px' }} />
-                    <div style={{ height: '0.75rem', width: '60%', backgroundColor: 'rgba(255,255,255,0.05)', borderRadius: '4px' }} />
-                    <div style={{ marginTop: 'auto', display: 'flex', gap: '4px' }}>
-                      {[1,2,3,4,5].map(star => <Star key={star} size={12} color={star < 5 ? '#fbbf24' : 'rgba(255,255,255,0.2)'} fill={star < 5 ? '#fbbf24' : 'none'} />)}
+            
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem', padding: '0 1rem 1rem 1rem', pointerEvents: 'none' }}>
+              {[
+                {
+                  id: 1,
+                  title: 'Dune',
+                  author: 'Frank Herbert',
+                  status: 'reading',
+                  progress: 'Chapter 12, Page 245',
+                  rating: null,
+                  cover: 'https://covers.openlibrary.org/b/id/8259439-M.jpg'
+                },
+                {
+                  id: 2,
+                  title: 'Atomic Habits',
+                  author: 'James Clear',
+                  status: 'read',
+                  progress: null,
+                  rating: 5,
+                  cover: 'https://covers.openlibrary.org/b/id/12869503-M.jpg'
+                },
+                {
+                  id: 3,
+                  title: 'Project Hail Mary',
+                  author: 'Andy Weir',
+                  status: 'to_read',
+                  progress: null,
+                  rating: null,
+                  cover: 'https://covers.openlibrary.org/b/id/11181676-M.jpg'
+                }
+              ].map(book => (
+                <div key={book.id} className="glass-panel" style={{ display: 'flex', flexDirection: 'column', overflow: 'hidden', background: 'rgba(26, 31, 46, 0.8)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '16px' }}>
+                  
+                  {/* Cover */}
+                  <div style={{ 
+                    height: '200px', 
+                    backgroundColor: 'rgba(0,0,0,0.4)', 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center',
+                    borderBottom: '1px solid rgba(255,255,255,0.05)',
+                    position: 'relative',
+                    overflow: 'hidden'
+                  }}>
+                    <div style={{
+                      position: 'absolute', inset: 0, backgroundImage: `url(${book.cover})`,
+                      backgroundSize: 'cover', backgroundPosition: 'center', filter: 'blur(10px)',
+                      opacity: 0.4, zIndex: 0
+                    }} />
+                    <img 
+                      src={book.cover} 
+                      alt={book.title}
+                      style={{ height: '90%', width: 'auto', objectFit: 'contain', zIndex: 1, boxShadow: '0 4px 12px rgba(0,0,0,0.5)' }}
+                    />
+                    
+                    {/* Status Badge */}
+                    <div style={{ 
+                      position: 'absolute', top: '1rem', right: '1rem', 
+                      backgroundColor: 'rgba(26, 31, 46, 0.8)', backdropFilter: 'blur(4px)',
+                      padding: '0.25rem 0.75rem', borderRadius: '999px', border: '1px solid rgba(255,255,255,0.1)', zIndex: 2
+                    }}>
+                      {book.status === 'read' && <span style={{ color: 'var(--accent)', fontSize: '0.75rem', fontWeight: '500' }}>Finished</span>}
+                      {book.status === 'to_read' && <span style={{ color: 'var(--text-secondary)', fontSize: '0.75rem', fontWeight: '500' }}>To Read</span>}
+                      {book.status === 'reading' && <span style={{ color: 'var(--warning)', fontSize: '0.75rem', fontWeight: '500' }}>Reading</span>}
                     </div>
+                  </div>
+
+                  {/* Details */}
+                  <div style={{ padding: '1.25rem', display: 'flex', flexDirection: 'column', flex: 1, textAlign: 'left' }}>
+                    <h4 style={{ fontSize: '1.125rem', fontWeight: '600', margin: '0 0 0.25rem 0', color: 'white' }}>{book.title}</h4>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+                      <span style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>{book.author}</span>
+                      {book.rating && (
+                        <span style={{ display: 'flex', gap: '2px' }}>
+                          {[1, 2, 3, 4, 5].map(star => (
+                            <Star key={star} size={12} color={star <= book.rating ? '#fbbf24' : 'rgba(255,255,255,0.2)'} fill={star <= book.rating ? '#fbbf24' : 'none'} />
+                          ))}
+                        </span>
+                      )}
+                    </div>
+                    
+                    {book.status === 'reading' && (
+                      <div style={{ marginTop: 'auto', backgroundColor: 'rgba(0,0,0,0.2)', padding: '0.5rem', borderRadius: '8px' }}>
+                        <p style={{ margin: 0, fontSize: '0.75rem', color: 'var(--text-secondary)', display: 'flex', justifyContent: 'space-between' }}>
+                          <span>Progress</span>
+                          <strong style={{ color: 'white' }}>{book.progress}</strong>
+                        </p>
+                      </div>
+                    )}
                   </div>
                 </div>
               ))}
