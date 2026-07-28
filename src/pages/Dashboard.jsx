@@ -201,7 +201,7 @@ export default function Dashboard() {
               <label className="input-label">Author (optional)</label>
               <input className="input-field" value={author} onChange={e => setAuthor(e.target.value)} />
             </div>
-            <div className="input-group">
+            <div className="input-group" style={{ gridColumn: status === 'to_read' ? '1 / -1' : 'auto' }}>
               <label className="input-label">Status</label>
               <select className="input-field" value={status} onChange={e => setStatus(e.target.value)}>
                 <option value="reading">Reading</option>
@@ -210,7 +210,7 @@ export default function Dashboard() {
               </select>
             </div>
             {status === 'reading' && (
-              <div className="input-group" style={{ gridColumn: '1 / -1' }}>
+              <div className="input-group">
                 <label className="input-label">Current Progress (Chapter/Page)</label>
                 <input
                   type="text"
@@ -223,7 +223,7 @@ export default function Dashboard() {
             )}
             
             {status === 'read' && (
-              <div className="input-group" style={{ gridColumn: '1 / -1' }}>
+              <div className="input-group">
                 <label className="input-label">Rating</label>
                 <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.25rem' }}>
                   {[1, 2, 3, 4, 5].map((star) => (
