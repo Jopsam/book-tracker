@@ -15,7 +15,7 @@ export default function Dashboard() {
   const [formError, setFormError] = useState(null)
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
-  const [status, setStatus] = useState('reading')
+  const [status, setStatus] = useState('to_read')
   const [progress, setProgress] = useState('')
   const [rating, setRating] = useState(0)
   
@@ -116,7 +116,7 @@ export default function Dashboard() {
     setEditingId(null)
     setTitle('')
     setAuthor('')
-    setStatus('reading')
+    setStatus('to_read')
     setProgress('')
     setRating(0)
     setFormError(null)
@@ -159,8 +159,8 @@ export default function Dashboard() {
       <div style={{ display: 'flex', gap: '1rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '1rem', marginBottom: '2rem', overflowX: 'auto' }}>
         {[
           { id: 'all', label: 'All Books' },
-          { id: 'reading', label: 'Currently Reading' },
           { id: 'to_read', label: 'To Read' },
+          { id: 'reading', label: 'Currently Reading' },
           { id: 'read', label: 'Finished' }
         ].map(tab => (
           <button
@@ -205,8 +205,8 @@ export default function Dashboard() {
               <label className="input-label">Status</label>
               <div style={{ display: 'flex', gap: '0.25rem', backgroundColor: 'rgba(0,0,0,0.2)', padding: '0.25rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-color)' }}>
                 {[
-                  { value: 'reading', label: 'Reading' },
                   { value: 'to_read', label: 'To Read' },
+                  { value: 'reading', label: 'Reading' },
                   { value: 'read', label: 'Finished' }
                 ].map(opt => (
                   <button
