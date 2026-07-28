@@ -211,8 +211,18 @@ export default function Dashboard() {
             if (e.target === e.currentTarget) resetForm()
           }}
         >
-          <div className="glass-panel" style={{ padding: '2rem', width: '100%', maxWidth: '600px', maxHeight: '90vh', overflowY: 'auto' }}>
-            <h3 className="h3" style={{ marginBottom: '1.5rem' }}>{editingId ? 'Edit Book' : 'Add Book'}</h3>
+          <div style={{ 
+            backgroundColor: 'var(--surface-color)', 
+            border: '1px solid var(--border-color)', 
+            borderRadius: 'var(--radius-lg)', 
+            padding: '2.5rem', 
+            width: '100%', 
+            maxWidth: '800px', 
+            maxHeight: '90vh', 
+            overflowY: 'auto',
+            boxShadow: 'var(--shadow-lg)'
+          }}>
+            <h3 className="h3" style={{ marginBottom: '2rem' }}>{editingId ? 'Edit Book' : 'Add Book'}</h3>
             {formError && (
             <div style={{ padding: '0.75rem', backgroundColor: 'rgba(239, 68, 68, 0.1)', border: '1px solid var(--danger)', color: 'var(--danger)', borderRadius: 'var(--radius-md)', marginBottom: '1rem', fontSize: '0.875rem' }}>
               Error: {formError}
