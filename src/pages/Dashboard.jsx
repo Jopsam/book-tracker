@@ -249,20 +249,33 @@ export default function Dashboard() {
               
               {/* Cover Image Area */}
               <div style={{ 
-                height: '200px', 
-                backgroundColor: 'rgba(0,0,0,0.3)', 
+                height: '240px', 
+                backgroundColor: 'rgba(0,0,0,0.4)', 
                 display: 'flex', 
                 alignItems: 'center', 
                 justifyContent: 'center',
                 borderBottom: '1px solid var(--border-color)',
-                position: 'relative'
+                position: 'relative',
+                overflow: 'hidden'
               }}>
                 {book.cover_url ? (
-                  <img 
-                    src={book.cover_url} 
-                    alt={`Cover of ${book.title}`}
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                  />
+                  <>
+                    <div style={{
+                      position: 'absolute',
+                      inset: 0,
+                      backgroundImage: `url(${book.cover_url})`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
+                      filter: 'blur(10px)',
+                      opacity: 0.4,
+                      zIndex: 0
+                    }} />
+                    <img 
+                      src={book.cover_url} 
+                      alt={`Cover of ${book.title}`}
+                      style={{ height: '90%', width: 'auto', objectFit: 'contain', zIndex: 1, boxShadow: '0 4px 12px rgba(0,0,0,0.5)' }}
+                    />
+                  </>
                 ) : (
                   <div style={{ color: 'var(--primary)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', opacity: 0.6 }}>
                     <BookOpen size={48} />
@@ -287,19 +300,30 @@ export default function Dashboard() {
 
               {/* Book Details */}
               <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
-                <h4 style={{ fontSize: '1.125rem', fontWeight: '600', margin: '0 0 0.25rem 0', padding: 0 }}>{book.title}</h4>
-                {book.author && <p className="text-muted" style={{ fontSize: '0.875rem', margin: '0 0 1rem 0' }}>{book.author}</p>}
-                
-                {book.status === 'reading' && book.progress && (
-                  <div style={{ marginTop: 'auto', backgroundColor: 'rgba(0,0,0,0.2)', padding: '0.75rem', borderRadius: 'var(--radius-sm)' }}>
-                    <p className="text-muted" style={{ margin: 0, fontSize: '0.875rem', display: 'flex', justifyContent: 'space-between' }}>
-                      <span>Progress</span>
-                      <strong style={{ color: 'var(--text-primary)' }}>{book.progress}</strong>
-                    </p>
-                  </div>
-                )}
+                <div style={{ flex: 1 }}>
+                  <h4 style={{ fontSize: '1.125rem', fontWeight: '600', margin: '0 0 0.25rem 0', padding: 0 }}>{book.title}</h4>
+                  <p className="text-muted" style={{ fontSize: '0.875rem', margin: '0 0 1rem 0' }}>
+                    {book.author ? book.author : 'No author registered'}
+                  </p>
+                  
+                  {((book.status === 'reading' && book.progress) || book.status !== 'reading') && (
+                    <div style={{ marginTop: '1rem', backgroundColor: 'rgba(0,0,0,0.2)', padding: '0.75rem', borderRadius: 'var(--radius-sm)' }}>
+                      {book.status === 'reading' ? (
+                        <p className="text-muted" style={{ margin: 0, fontSize: '0.875rem', display: 'flex', justifyContent: 'space-between' }}>
+                          <span>Progress</span>
+                          <strong style={{ color: 'var(--text-primary)' }}>{book.progress}</strong>
+                        </p>
+                      ) : (
+                        <p className="text-muted" style={{ margin: 0, fontSize: '0.875rem', display: 'flex', justifyContent: 'space-between' }}>
+                          <span>{book.status === 'read' ? 'Finished at' : 'Registered at'}</span>
+                          <strong style={{ color: 'var(--text-primary)' }}>{new Date(book.created_at).toLocaleDateString()}</strong>
+                        </p>
+                      )}
+                    </div>
+                  )}
+                </div>
 
-                {/* Actions */}
+                {/* Actions Footer */}
                 <div style={{ display: 'flex', gap: '0.5rem', marginTop: '1.5rem', paddingTop: '1rem', borderTop: '1px solid var(--border-color)' }}>
                   <button onClick={() => handleEdit(book)} style={{ background: 'none', border: 'none', color: 'var(--text-secondary)', cursor: 'pointer', padding: '0.25rem', transition: 'var(--transition)' }}>
                     <Edit2 size={18} />
