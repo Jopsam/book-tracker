@@ -624,7 +624,7 @@ const fetchBooks = async () => {
               </div>
             </div>
             {status === 'reading' && (
-              <div className="input-group" style={{ gridColumn: '1 / -1' }}>
+              <div className="input-group">
                 <label className="input-label">{t('modal.progressLabel')} / {t('modal.totalPagesLabel')}</label>
                 <div className="input-field" style={{ display: 'flex', alignItems: 'center', padding: '0', overflow: 'hidden' }}>
                   <input
