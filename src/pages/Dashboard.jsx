@@ -6,6 +6,7 @@ import { useAuth } from '../context/AuthContext'
 import { LogOut, Plus, Trash2, Edit2, Book, Image as ImageIcon, BookOpen, Star, LibraryBig, BookX, Ghost, Search } from 'lucide-react'
 import { sileo } from 'sileo'
 import { motion, AnimatePresence } from 'framer-motion'
+import LanguageSwitcher from '../components/LanguageSwitcher'
 
 export default function Dashboard() {
   const { t } = useTranslation('dashboard')
@@ -120,7 +121,7 @@ export default function Dashboard() {
   }
 
   const handleDelete = async (id) => {
-    if (window.confirm('Are you sure you want to delete this book?')) {
+    if (window.confirm(t('notifs.confirmDelete'))) {
       const { error } = await supabase.from('books').delete().eq('id', id)
       if (error) {
         sileo.error({ title: t('notifs.errorDeleting'), description: t('notifs.errorDeletingDesc', 'We could not delete this book. Please try again.') })
@@ -166,20 +167,20 @@ export default function Dashboard() {
     if (searchQuery.trim() !== '') {
       return { 
         icon: <Search size={48} />, 
-        title: "No matches found", 
-        desc: `We couldn't find any books matching "${searchQuery}".`
+        title: t('emptyState.searchTitle'), 
+        desc: t('emptyState.searchDesc', { query: searchQuery })
       }
     }
 
     switch (activeTab) {
       case 'to_read':
-        return { icon: <LibraryBig size={48} />, title: "Your wishlist is empty", desc: "You don't have any books marked to read yet." }
+        return { icon: <LibraryBig size={48} />, title: t('emptyState.toReadTitle'), desc: t('emptyState.toReadDesc') }
       case 'reading':
-        return { icon: <BookOpen size={48} />, title: "Not reading anything?", desc: "Start a book and track your progress here." }
+        return { icon: <BookOpen size={48} />, title: t('emptyState.readingTitle'), desc: t('emptyState.readingDesc') }
       case 'read':
-        return { icon: <Book size={48} />, title: "No finished books", desc: "Books you finish reading will appear here." }
+        return { icon: <Book size={48} />, title: t('emptyState.readTitle'), desc: t('emptyState.readDesc') }
       default:
-        return { icon: <Ghost size={48} />, title: "Your library is a ghost town", desc: "You haven't added any books yet." }
+        return { icon: <Ghost size={48} />, title: t('emptyState.allTitle'), desc: t('emptyState.allDesc') }
     }
   }
   const emptyState = getEmptyStateContent()
@@ -204,7 +205,8 @@ export default function Dashboard() {
             <p className="text-muted" style={{ fontSize: '0.875rem', margin: 0 }}>{user.email}</p>
           </div>
         </div>
-        <div style={{ display: 'flex', gap: '1rem' }}>
+        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+          <LanguageSwitcher />
           <button onClick={() => setShowForm(!showForm)} className="btn btn-primary">
             <Plus size={20} /> New Book
           </button>
@@ -218,10 +220,10 @@ export default function Dashboard() {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border-color)', paddingBottom: '1rem', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
         <div style={{ display: 'flex', gap: '1rem', overflowX: 'auto' }}>
           {[
-            { id: 'all', label: 'All Books' },
-            { id: 'to_read', label: 'To Read' },
-            { id: 'reading', label: 'Currently Reading' },
-            { id: 'read', label: 'Finished' }
+            { id: 'all', label: t('filters.allBooks') },
+            { id: 'to_read', label: t('filters.toRead') },
+            { id: 'reading', label: t('filters.reading') },
+            { id: 'read', label: t('filters.finished') }
           ].map(tab => (
             <button
               key={tab.id}
@@ -250,7 +252,7 @@ export default function Dashboard() {
             <input 
               type="text" 
               className="input-field" 
-              placeholder="Search by title or author..." 
+              placeholder={t('filters.searchPlaceholder')} 
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               style={{ paddingLeft: '2.75rem', borderRadius: 'var(--radius-full)', backgroundColor: 'rgba(255,255,255,0.05)', width: '100%' }}
@@ -288,7 +290,7 @@ export default function Dashboard() {
             overflowY: 'auto',
             boxShadow: 'var(--shadow-lg)'
           }}>
-            <h3 className="h3" style={{ marginBottom: '2rem' }}>{editingId ? 'Edit Book' : 'Add Book'}</h3>
+            <h3 className="h3" style={{ marginBottom: '2rem' }}>{editingId ? t('modal.editTitle') : t('modal.addTitle')}</h3>
           <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '1rem', gridTemplateColumns: '1fr 1fr' }}>
             <div className="input-group">
               <label className="input-label">{t('modal.titleLabel')}</label>
@@ -302,9 +304,9 @@ export default function Dashboard() {
               <label className="input-label">{t('modal.statusLabel')}</label>
               <div style={{ display: 'flex', gap: '0.25rem', backgroundColor: 'rgba(0,0,0,0.2)', padding: '0.25rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-color)' }}>
                 {[
-                  { value: 'to_read', label: 'To Read' },
-                  { value: 'reading', label: 'Reading' },
-                  { value: 'read', label: 'Finished' }
+                  { value: 'to_read', label: t('modal.statusToRead') },
+                  { value: 'reading', label: t('modal.statusReading') },
+                  { value: 'read', label: t('modal.statusFinished') }
                 ].map(opt => (
                   <button
                     key={opt.value}
@@ -331,20 +333,20 @@ export default function Dashboard() {
             </div>
             {status === 'reading' && (
               <div className="input-group">
-                <label className="input-label">Current Progress (Chapter/Page)</label>
+                <label className="input-label">{t('modal.progressLabel')}</label>
                 <input
                   type="text"
                   value={progress}
                   onChange={(e) => setProgress(e.target.value)}
                   className="input-field"
-                  placeholder="e.g. Chapter 4, Page 120"
+                  placeholder={t('modal.progressPlaceholder')}
                 />
               </div>
             )}
             
             {status === 'read' && (
               <div className="input-group">
-                <label className="input-label">Rating</label>
+                <label className="input-label">{t('modal.ratingLabel')}</label>
                 <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.25rem' }}>
                   {[1, 2, 3, 4, 5].map((star) => (
                     <button
@@ -368,12 +370,12 @@ export default function Dashboard() {
             )}
             
             <div className="input-group" style={{ gridColumn: '1 / -1' }}>
-              <label className="input-label">Personal Notes / Review</label>
+              <label className="input-label">{t('modal.notesLabel')}</label>
               <textarea
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
                 className="input-field"
-                placeholder="What did you think about this book?"
+                placeholder={t('modal.notesPlaceholder')}
                 rows={3}
                 style={{ resize: 'vertical', fontFamily: 'inherit' }}
               />
@@ -381,7 +383,7 @@ export default function Dashboard() {
             
             <div style={{ gridColumn: '1 / -1', display: 'flex', gap: '1rem', justifyContent: 'flex-end', marginTop: '1rem' }}>
               <button type="submit" className="btn btn-primary" disabled={isSaving}>
-                {isSaving ? 'Searching cover & saving...' : 'Save Book'}
+                {isSaving ? t('modal.saving') : t('modal.saveBtn')}
               </button>
               <button type="button" onClick={resetForm} className="btn btn-outline" disabled={isSaving}>{t('modal.cancel')}</button>
             </div>
@@ -508,7 +510,7 @@ export default function Dashboard() {
                 <div style={{ flex: 1 }}>
                   <h4 style={{ fontSize: '1.125rem', fontWeight: '600', margin: '0 0 0.25rem 0', padding: 0 }}>{book.title}</h4>
                   <div className="text-muted" style={{ fontSize: '0.875rem', margin: '0 0 1rem 0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span>{book.author ? book.author : 'No author registered'}</span>
+                    <span>{book.author ? book.author : t('bookCard.noAuthor')}</span>
                     {book.rating && (
                       <span style={{ display: 'flex', gap: '2px' }}>
                         {[1, 2, 3, 4, 5].map(star => (
@@ -527,7 +529,7 @@ export default function Dashboard() {
                         </p>
                       ) : (
                         <p className="text-muted" style={{ margin: 0, fontSize: '0.875rem', display: 'flex', justifyContent: 'space-between' }}>
-                          <span>{book.status === 'read' ? 'Finished at' : 'Registered at'}</span>
+                          <span>{book.status === 'read' ? t('bookCard.finishedAt') : t('bookCard.registeredAt')}</span>
                           <strong style={{ color: 'var(--text-primary)' }}>{new Date(book.created_at).toLocaleDateString()}</strong>
                         </p>
                       )}

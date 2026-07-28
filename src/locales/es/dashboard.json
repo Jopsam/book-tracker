@@ -12,7 +12,9 @@
     "all": "Todos",
     "reading": "Leyendo",
     "finished": "Terminados",
-    "toRead": "Por Leer"
+    "toRead": "Por Leer",
+    "newBook": "Nuevo Libro",
+    "signOut": "Cerrar Sesi\u00f3n"
   },
   "emptyStates": {
     "noResults": {
@@ -29,15 +31,13 @@
     }
   },
   "bookCard": {
-    "reading": "Leyendo",
-    "finished": "Terminado",
-    "toRead": "Por Leer",
     "progress": "Progreso",
-    "edit": "Editar",
-    "delete": "Eliminar"
+    "noAuthor": "Sin autor registrado",
+    "finishedAt": "Terminado el",
+    "registeredAt": "Registrado el"
   },
   "modal": {
-    "addTitle": "Agregar Libro",
+    "addTitle": "A\u00f1adir Libro",
     "editTitle": "Editar Libro",
     "titlePlaceholder": "T\u00edtulo",
     "authorPlaceholder": "Autor",
@@ -46,13 +46,20 @@
     "reading": "Leyendo",
     "finished": "Terminado",
     "toRead": "Por Leer",
-    "ratingLabel": "Calificaci\u00f3n (1-5)",
-    "notesLabel": "Notas",
-    "notesPlaceholder": "Agregar notas...",
+    "ratingLabel": "Calificaci\u00f3n",
+    "notesLabel": "Notas Personales / Rese\u00f1a",
+    "notesPlaceholder": "\u00bfQu\u00e9 te pareci\u00f3 este libro?",
     "cancel": "Cancelar",
     "save": "Guardar Libro",
     "titleLabel": "T\u00edtulo",
-    "authorLabel": "Autor (opcional)"
+    "authorLabel": "Autor (opcional)",
+    "statusToRead": "Por Leer",
+    "statusReading": "Leyendo",
+    "statusFinished": "Terminado",
+    "progressLabel": "Progreso Actual (Cap\u00edtulo/P\u00e1gina)",
+    "progressPlaceholder": "Ej. Cap\u00edtulo 4, P\u00e1gina 120",
+    "saving": "Buscando portada y guardando...",
+    "saveBtn": "Guardar Libro"
   },
   "auth": {
     "welcomeBack": "Bienvenido de nuevo",
@@ -79,7 +86,7 @@
     "processing": "Procesando...",
     "signUpBtn": "Registrarse",
     "signUpLink": "Reg\u00edstrate",
-    "signInLink": "Inicia sesión"
+    "signInLink": "Inicia sesi\u00f3n"
   },
   "notifs": {
     "bookAdded": "\u00a1Libro a\u00f1adido exitosamente!",
@@ -88,6 +95,27 @@
     "errorLoading": "Error al cargar libros",
     "errorAdding": "Error al a\u00f1adir libro",
     "errorUpdating": "Error al actualizar libro",
-    "errorDeleting": "Error al eliminar libro"
+    "errorDeleting": "Error al eliminar libro",
+    "confirmDelete": "\u00bfEst\u00e1s seguro de que deseas eliminar este libro?"
+  },
+  "emptyState": {
+    "searchTitle": "No se encontraron coincidencias",
+    "searchDesc": "No pudimos encontrar libros que coincidan con \"{{query}}\".",
+    "toReadTitle": "Tu lista de deseos est\u00e1 vac\u00eda",
+    "toReadDesc": "A\u00fan no has marcado ning\u00fan libro para leer.",
+    "readingTitle": "\u00bfNo est\u00e1s leyendo nada?",
+    "readingDesc": "Empieza un libro y haz un seguimiento de tu progreso aqu\u00ed.",
+    "readTitle": "No hay libros terminados",
+    "readDesc": "Los libros que termines aparecer\u00e1n aqu\u00ed.",
+    "allTitle": "Tu biblioteca es un pueblo fantasma",
+    "allDesc": "A\u00fan no has a\u00f1adido ning\u00fan libro.",
+    "addFirst": "A\u00f1ade tu primer libro"
+  },
+  "filters": {
+    "allBooks": "Todos",
+    "toRead": "Por Leer",
+    "reading": "Leyendo",
+    "finished": "Terminados",
+    "searchPlaceholder": "Buscar por t\u00edtulo o autor..."
   }
 }

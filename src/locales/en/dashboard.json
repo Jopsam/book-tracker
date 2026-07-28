@@ -12,7 +12,9 @@
     "all": "All",
     "reading": "Reading",
     "finished": "Finished",
-    "toRead": "To Read"
+    "toRead": "To Read",
+    "newBook": "New Book",
+    "signOut": "Sign Out"
   },
   "emptyStates": {
     "noResults": {
@@ -29,12 +31,10 @@
     }
   },
   "bookCard": {
-    "reading": "Reading",
-    "finished": "Finished",
-    "toRead": "To Read",
     "progress": "Progress",
-    "edit": "Edit",
-    "delete": "Delete"
+    "noAuthor": "No author registered",
+    "finishedAt": "Finished at",
+    "registeredAt": "Registered at"
   },
   "modal": {
     "addTitle": "Add Book",
@@ -46,13 +46,20 @@
     "reading": "Reading",
     "finished": "Finished",
     "toRead": "To Read",
-    "ratingLabel": "Rating (1-5)",
-    "notesLabel": "Notes",
-    "notesPlaceholder": "Add notes...",
+    "ratingLabel": "Rating",
+    "notesLabel": "Personal Notes / Review",
+    "notesPlaceholder": "What did you think about this book?",
     "cancel": "Cancel",
     "save": "Save Book",
     "titleLabel": "Title",
-    "authorLabel": "Author (optional)"
+    "authorLabel": "Author (optional)",
+    "statusToRead": "To Read",
+    "statusReading": "Reading",
+    "statusFinished": "Finished",
+    "progressLabel": "Current Progress (Chapter/Page)",
+    "progressPlaceholder": "e.g. Chapter 4, Page 120",
+    "saving": "Searching cover & saving...",
+    "saveBtn": "Save Book"
   },
   "auth": {
     "welcomeBack": "Welcome Back",
@@ -88,6 +95,27 @@
     "errorLoading": "Error loading books",
     "errorAdding": "Error adding book",
     "errorUpdating": "Error updating book",
-    "errorDeleting": "Error deleting book"
+    "errorDeleting": "Error deleting book",
+    "confirmDelete": "Are you sure you want to delete this book?"
+  },
+  "emptyState": {
+    "searchTitle": "No matches found",
+    "searchDesc": "We couldn't find any books matching \"{{query}}\".",
+    "toReadTitle": "Your wishlist is empty",
+    "toReadDesc": "You don't have any books marked to read yet.",
+    "readingTitle": "Not reading anything?",
+    "readingDesc": "Start a book and track your progress here.",
+    "readTitle": "No finished books",
+    "readDesc": "Books you finish reading will appear here.",
+    "allTitle": "Your library is a ghost town",
+    "allDesc": "You haven't added any books yet.",
+    "addFirst": "Add your first book"
+  },
+  "filters": {
+    "allBooks": "All Books",
+    "toRead": "To Read",
+    "reading": "Currently Reading",
+    "finished": "Finished",
+    "searchPlaceholder": "Search by title or author..."
   }
 }
