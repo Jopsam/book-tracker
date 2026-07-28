@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../context/AuthContext'
-import { LogOut, Plus, Trash2, Edit2, Book, Image as ImageIcon, BookOpen, Star, LibraryBig, BookX, Ghost } from 'lucide-react'
+import { LogOut, Plus, Trash2, Edit2, Book, Image as ImageIcon, BookOpen, Star, LibraryBig, BookX, Ghost, Search } from 'lucide-react'
 import { sileo } from 'sileo'
 import { motion, AnimatePresence } from 'framer-motion'
 
@@ -11,6 +11,7 @@ export default function Dashboard() {
   const [books, setBooks] = useState([])
   const [loading, setLoading] = useState(true)
   const [activeTab, setActiveTab] = useState('all')
+  const [searchQuery, setSearchQuery] = useState('')
   
   // Form state
   const [showForm, setShowForm] = useState(false)
@@ -172,7 +173,13 @@ export default function Dashboard() {
   }
   const emptyState = getEmptyStateContent()
 
-  const filteredBooks = books.filter(b => activeTab === 'all' || b.status === activeTab)
+  const filteredBooks = books.filter(b => {
+    const matchesTab = activeTab === 'all' || b.status === activeTab
+    const searchLower = searchQuery.toLowerCase()
+    const matchesSearch = b.title.toLowerCase().includes(searchLower) || 
+                          (b.author && b.author.toLowerCase().includes(searchLower))
+    return matchesTab && matchesSearch
+  })
 
   return (
     <div className="container animate-fade-in" style={{ paddingTop: '2rem', paddingBottom: '4rem' }}>
@@ -196,33 +203,49 @@ export default function Dashboard() {
         </div>
       </header>
 
-      {/* Tabs Navigation */}
-      <div style={{ display: 'flex', gap: '1rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '1rem', marginBottom: '2rem', overflowX: 'auto' }}>
-        {[
-          { id: 'all', label: 'All Books' },
-          { id: 'to_read', label: 'To Read' },
-          { id: 'reading', label: 'Currently Reading' },
-          { id: 'read', label: 'Finished' }
-        ].map(tab => (
-          <button
-            key={tab.id}
-            onClick={() => setActiveTab(tab.id)}
-            style={{
-              background: 'none',
-              border: 'none',
-              color: activeTab === tab.id ? 'var(--primary)' : 'var(--text-secondary)',
-              fontWeight: activeTab === tab.id ? '600' : '400',
-              cursor: 'pointer',
-              padding: '0.5rem 1rem',
-              borderRadius: 'var(--radius-full)',
-              backgroundColor: activeTab === tab.id ? 'rgba(99, 102, 241, 0.1)' : 'transparent',
-              transition: 'var(--transition)',
-              whiteSpace: 'nowrap'
-            }}
-          >
-            {tab.label}
-          </button>
-        ))}
+      {/* Tabs Navigation and Search */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border-color)', paddingBottom: '1rem', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
+        <div style={{ display: 'flex', gap: '1rem', overflowX: 'auto' }}>
+          {[
+            { id: 'all', label: 'All Books' },
+            { id: 'to_read', label: 'To Read' },
+            { id: 'reading', label: 'Currently Reading' },
+            { id: 'read', label: 'Finished' }
+          ].map(tab => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              style={{
+                background: 'none',
+                border: 'none',
+                color: activeTab === tab.id ? 'var(--primary)' : 'var(--text-secondary)',
+                fontWeight: activeTab === tab.id ? '600' : '400',
+                cursor: 'pointer',
+                padding: '0.5rem 1rem',
+                borderRadius: 'var(--radius-full)',
+                backgroundColor: activeTab === tab.id ? 'rgba(99, 102, 241, 0.1)' : 'transparent',
+                transition: 'var(--transition)',
+                whiteSpace: 'nowrap'
+              }}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+        
+        <div className="input-group" style={{ margin: 0, minWidth: '250px', flex: '1 1 250px', maxWidth: '400px' }}>
+          <div style={{ position: 'relative' }}>
+            <Search size={18} style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-secondary)' }} />
+            <input 
+              type="text" 
+              className="input-field" 
+              placeholder="Search by title or author..." 
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              style={{ paddingLeft: '2.75rem', borderRadius: 'var(--radius-full)', backgroundColor: 'rgba(255,255,255,0.05)', width: '100%' }}
+            />
+          </div>
+        </div>
       </div>
 
       {showForm && createPortal(
@@ -358,7 +381,18 @@ export default function Dashboard() {
       )}
 
       {loading ? (
-        <p className="text-muted">Loading your library...</p>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1.5rem' }}>
+          {[1, 2, 3, 4, 5, 6].map(i => (
+            <div key={i} className="glass-panel pulse-anim" style={{ display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+              <div style={{ height: '240px', backgroundColor: 'rgba(255,255,255,0.05)' }} />
+              <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem', flex: 1 }}>
+                <div style={{ height: '1.5rem', backgroundColor: 'rgba(255,255,255,0.05)', borderRadius: 'var(--radius-sm)', width: '80%' }} />
+                <div style={{ height: '1rem', backgroundColor: 'rgba(255,255,255,0.05)', borderRadius: 'var(--radius-sm)', width: '60%' }} />
+                <div style={{ marginTop: '2rem', height: '2rem', backgroundColor: 'rgba(255,255,255,0.05)', borderRadius: 'var(--radius-sm)', width: '100%' }} />
+              </div>
+            </div>
+          ))}
+        </div>
       ) : (
         <motion.div layout style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1.5rem' }}>
           <AnimatePresence mode="popLayout">
