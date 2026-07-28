@@ -62,7 +62,7 @@ export default function Landing() {
             transition={{ duration: 0.8, delay: 0.2 }}
             style={{ fontSize: 'clamp(3rem, 8vw, 5.5rem)', lineHeight: 1.1, marginBottom: '1.5rem', background: 'linear-gradient(135deg, #ffffff 0%, #94a3b8 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', letterSpacing: '-0.03em' }}
           >
-            Escape the noise.<br /> Immerse in reading.
+            {t('hero.title1')}<br /> {t('hero.title2')}
           </motion.h1>
           
           <motion.p 
@@ -72,7 +72,7 @@ export default function Landing() {
             transition={{ duration: 0.8, delay: 0.3 }}
             style={{ fontSize: '1.25rem', marginBottom: '3rem', maxWidth: '600px', margin: '0 auto 3rem auto', lineHeight: 1.6 }}
           >
-            Ditch the cluttered spreadsheets and clunky social networks. Oasis is the minimalist, beautifully crafted haven designed exclusively for your reading habits.
+            {t('hero.subtitle')}
           </motion.p>
           
           <motion.div
@@ -245,7 +245,7 @@ export default function Landing() {
             <Zap size={48} color="var(--primary)" style={{ marginBottom: '1.5rem' }} />
             <h2 className="h2" style={{ marginBottom: '1rem' }}>{t('bento.f1.title')}</h2>
             <p className="text-muted" style={{ maxWidth: '500px', fontSize: '1.125rem' }}>
-              Built with React and Framer Motion. Find any book in milliseconds with our real-time filtering. Watch your library rearrange itself magically as you type.
+              {t('bento.f1.desc')}
             </p>
           </motion.div>
 
@@ -349,7 +349,7 @@ export default function Landing() {
         >
           <h2 className="h2" style={{ marginBottom: '1.5rem', fontSize: '2.5rem' }}>{t('cta.title')}</h2>
           <p className="text-muted" style={{ maxWidth: '500px', margin: '0 auto 2.5rem auto', fontSize: '1.125rem' }}>
-            Join thousands of readers who have already migrated to the most elegant book tracking experience on the web.
+            {t('cta.subtitle')}
           </p>
           <Link to="/auth" className="btn btn-primary" style={{ fontSize: '1.125rem', padding: '1rem 3rem', borderRadius: 'var(--radius-full)' }}>
             {t('cta.button')}
@@ -364,8 +364,8 @@ export default function Landing() {
             <span style={{ fontWeight: '600' }}>Oasis Book Tracking</span>
           </div>
           <div style={{ display: 'flex', gap: '2rem', fontSize: '0.875rem', color: 'var(--text-secondary)' }}>
-            <span style={{ cursor: 'pointer', transition: 'color 0.2s' }} onMouseOver={e => e.target.style.color='white'} onMouseOut={e => e.target.style.color='var(--text-secondary)'}>Twitter</span>
-            <span style={{ cursor: 'pointer', transition: 'color 0.2s' }} onMouseOver={e => e.target.style.color='white'} onMouseOut={e => e.target.style.color='var(--text-secondary)'}>GitHub</span>
+            <span style={{ cursor: 'pointer', transition: 'color 0.2s' }} onMouseOver={e => e.target.style.color='white'} onMouseOut={e => e.target.style.color='var(--text-secondary)'}>{t('footer.twitter')}</span>
+            <span style={{ cursor: 'pointer', transition: 'color 0.2s' }} onMouseOver={e => e.target.style.color='white'} onMouseOut={e => e.target.style.color='var(--text-secondary)'}>{t('footer.github')}</span>
             <span style={{ cursor: 'pointer', transition: 'color 0.2s' }} onMouseOver={e => e.target.style.color='white'} onMouseOut={e => e.target.style.color='var(--text-secondary)'}>{t('footer.privacy')}</span>
             <span style={{ cursor: 'pointer', transition: 'color 0.2s' }} onMouseOver={e => e.target.style.color='white'} onMouseOut={e => e.target.style.color='var(--text-secondary)'}>{t('footer.terms')}</span>
           </div>

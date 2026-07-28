@@ -38,7 +38,7 @@
     "label": "The Problem",
     "title": "Goodreads is outdated. Excel is boring. Your reading life deserves better.",
     "desc": "We noticed that readers were forced to choose between social networks filled with ads and toxic reviews, or boring, lifeless spreadsheets. Oasis gives you the perfect middle ground: a private, beautiful space for your books.",
-    "title1": "Goodreads is outdated. Excel is boring.",
+    "title1": "Old platforms are outdated. Excel is boring.",
     "title2": "Your reading life deserves better."
   },
   "features": {
@@ -73,7 +73,8 @@
   "cta": {
     "title": "Ready to organize your reading life?",
     "desc": "Free forever. No ads. No tracking.",
-    "button": "Get Started Now"
+    "button": "Get Started Now",
+    "subtitle": "Join thousands of readers who have already migrated to the most elegant book tracking experience on the web."
   },
   "footer": {
     "privacy": "Privacy",

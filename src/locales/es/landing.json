@@ -38,7 +38,7 @@
     "label": "El Problema",
     "title": "Goodreads est\u00e1 obsoleto. Excel es aburrido. Tu vida lectora merece algo mejor.",
     "desc": "Notamos que los lectores estaban obligados a elegir entre redes sociales llenas de anuncios y rese\u00f1as t\u00f3xicas, u hojas de c\u00e1lculo aburridas y sin vida. Oasis te da el punto medio perfecto: un espacio privado y hermoso para tus libros.",
-    "title1": "Goodreads est\u00e1 obsoleto. Excel es aburrido.",
+    "title1": "Las plataformas antiguas est\u00e1n obsoletas. Excel es aburrido.",
     "title2": "Tu vida lectora merece algo mejor."
   },
   "features": {
@@ -73,7 +73,8 @@
   "cta": {
     "title": "\u00bfListo para organizar tu vida lectora?",
     "desc": "Gratis para siempre. Sin anuncios. Sin rastreo.",
-    "button": "Comenzar Ahora"
+    "button": "Comenzar Ahora",
+    "subtitle": "\u00danete a miles de lectores que ya han migrado a la experiencia de seguimiento de libros m\u00e1s elegante de la web."
   },
   "footer": {
     "privacy": "Privacidad",
