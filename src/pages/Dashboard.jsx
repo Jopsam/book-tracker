@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 
-const BookCard = ({ book, handleEdit, handleDelete, getStatusBadge, t }) => {
+const BookCard = ({ book, handleEdit, handleDelete, getStatusBadge, onRead, t }) => {
   const [imageLoaded, setImageLoaded] = useState(false)
   
   // Try to parse progress and pageCount to render a progress bar
@@ -161,6 +161,29 @@ const BookCard = ({ book, handleEdit, handleDelete, getStatusBadge, t }) => {
         <button onClick={() => handleDelete(book.id)} style={{ background: 'none', border: 'none', color: 'var(--danger)', cursor: 'pointer', padding: '0.25rem', transition: 'var(--transition)' }}>
           <Trash2 size={18} />
         </button>
+        {book.ia_id && (
+          <button 
+            onClick={() => onRead(book)} 
+            style={{ 
+              marginLeft: 'auto', 
+              background: 'var(--primary)', 
+              border: 'none', 
+              color: 'white', 
+              cursor: 'pointer', 
+              padding: '0.4rem 0.75rem', 
+              borderRadius: 'var(--radius-sm)',
+              fontSize: '0.875rem',
+              fontWeight: '500',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.25rem',
+              transition: 'var(--transition)'
+            }}
+          >
+            <BookOpen size={16} />
+            {t('bookCard.readNow', 'Leer Ahora')}
+          </button>
+        )}
       </div>
     </div>
   </motion.div>
@@ -184,6 +207,7 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true)
   const [activeTab, setActiveTab] = useState('all')
   const [searchQuery, setSearchQuery] = useState('')
+  const [readingBook, setReadingBook] = useState(null)
   
   // Form state
   const [showForm, setShowForm] = useState(false)
@@ -205,6 +229,7 @@ export default function Dashboard() {
   const [notes, setNotes] = useState('')
   const [coverUrl, setCoverUrl] = useState('')
   const [pageCount, setPageCount] = useState('')
+  const [iaId, setIaId] = useState('')
   
   // Google Books API Search state
   const [bookSearchQuery, setBookSearchQuery] = useState('')
@@ -226,7 +251,7 @@ export default function Dashboard() {
     }
     setIsSearching(true)
     try {
-      const res = await fetch(`https://openlibrary.org/search.json?q=${encodeURIComponent(query)}&limit=5&fields=key,title,author_name,cover_i,number_of_pages_median`)
+      const res = await fetch(`https://openlibrary.org/search.json?q=${encodeURIComponent(query)}&limit=5&fields=key,title,author_name,cover_i,number_of_pages_median,has_fulltext,ia`)
       const data = await res.json()
       if (data.docs) {
         setSearchResults(data.docs.map(item => ({
@@ -234,7 +259,8 @@ export default function Dashboard() {
           title: item.title,
           author: item.author_name ? item.author_name.join(', ') : '',
           coverUrl: item.cover_i ? `https://covers.openlibrary.org/b/id/${item.cover_i}-L.jpg` : '',
-          pageCount: item.number_of_pages_median || ''
+          pageCount: item.number_of_pages_median || '',
+          iaId: item.has_fulltext && item.ia ? item.ia[0] : ''
         })))
       } else {
         setSearchResults([])
@@ -252,6 +278,7 @@ export default function Dashboard() {
     setAuthor(book.author)
     setCoverUrl(book.coverUrl)
     setPageCount(book.pageCount)
+    setIaId(book.iaId || '')
     setSearchResults([])
     setBookSearchQuery('')
     sileo.success({ title: t('notifs.bookFound'), description: t('notifs.bookFoundDesc') })
@@ -301,7 +328,8 @@ const fetchBooks = async () => {
       user_id: user.id, 
       rating: rating > 0 ? rating : null,
       notes,
-      page_count: pageCount ? parseInt(pageCount, 10) : null
+      page_count: pageCount ? parseInt(pageCount, 10) : null,
+      ia_id: iaId || null
     }
     
     let cover_url = null
@@ -356,18 +384,25 @@ const fetchBooks = async () => {
     setProgress(book.progress || '')
     setRating(book.rating || 0)
     setNotes(book.notes || '')
+    setPageCount(book.page_count || '')
+    setIaId(book.ia_id || '')
     setShowForm(true)
   }
 
   const resetForm = () => {
-    setShowForm(false)
-    setEditingId(null)
     setTitle('')
     setAuthor('')
     setStatus('to_read')
     setProgress('')
     setRating(0)
     setNotes('')
+    setPageCount('')
+    setIaId('')
+    setCoverUrl('')
+    setEditingId(null)
+    setBookSearchQuery('')
+    setSearchResults([])
+    setShowForm(false)
   }
 
   const getStatusBadge = (s) => {
@@ -698,6 +733,50 @@ const fetchBooks = async () => {
         document.body
       )}
 
+      {readingBook && createPortal(
+        <div style={{ position: 'fixed', inset: 0, zIndex: 40, display: 'flex', alignItems: 'center', justifyItems: 'center', justifyContent: 'center' }}>
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setReadingBook(null)}
+            style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(8px)' }}
+          />
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+            className="glass-panel"
+            style={{ position: 'relative', width: '90%', maxWidth: '1200px', height: '85vh', display: 'flex', flexDirection: 'column', padding: 0, overflow: 'hidden' }}
+          >
+            <div style={{ padding: '1rem', borderBottom: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.3)' }}>
+              <h2 className="h3" style={{ margin: 0, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <BookOpen size={20} /> {readingBook.title}
+              </h2>
+              <button 
+                onClick={() => setReadingBook(null)}
+                style={{ background: 'none', border: 'none', color: 'var(--text-secondary)', cursor: 'pointer', padding: '0.5rem', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                onMouseEnter={e => { e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.color = 'var(--text-primary)' }}
+                onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = 'var(--text-secondary)' }}
+              >
+                <BookX size={20} />
+              </button>
+            </div>
+            <div style={{ flex: 1, width: '100%', backgroundColor: '#f5f5f5' }}>
+              <iframe 
+                src={`https://archive.org/stream/${readingBook.ia_id}?ui=embed`}
+                width="100%" 
+                height="100%" 
+                frameBorder="0" 
+                allowFullScreen
+                style={{ display: 'block' }}
+              />
+            </div>
+          </motion.div>
+        </div>,
+        document.body
+      )}
+
       {loading ? (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1.5rem' }}>
           {[1, 2, 3, 4, 5, 6].map(i => (
@@ -747,7 +826,7 @@ const fetchBooks = async () => {
               </motion.div>
             )}
             
-            {filteredBooks.map(book => (<BookCard key={book.id} book={book} handleEdit={handleEdit} handleDelete={handleDelete} getStatusBadge={getStatusBadge} t={t} />))}
+            {filteredBooks.map(book => (<BookCard key={book.id} book={book} handleEdit={handleEdit} handleDelete={handleDelete} getStatusBadge={getStatusBadge} onRead={setReadingBook} t={t} />))}
           </AnimatePresence>
         </motion.div>
       )}
