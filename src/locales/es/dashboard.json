@@ -1,0 +1,68 @@
+{
+  "header": {
+    "title": "Oasis Book Tracking",
+    "signOut": "Cerrar Sesión"
+  },
+  "tabs": {
+    "books": "Libros"
+  },
+  "actions": {
+    "search": "Buscar libros...",
+    "addBook": "Agregar Libro",
+    "all": "Todos",
+    "reading": "Leyendo",
+    "finished": "Terminados",
+    "toRead": "Por Leer"
+  },
+  "emptyStates": {
+    "noResults": {
+      "title": "No se encontraron libros",
+      "desc": "Intenta ajustar tu búsqueda."
+    },
+    "emptyLibrary": {
+      "title": "Tu biblioteca está vacía",
+      "desc": "¡Agrega tu primer libro para comenzar a registrar tu viaje de lectura!"
+    },
+    "emptySection": {
+      "title": "No hay libros en esta sección",
+      "desc": "Aún no has agregado ningún libro con este estado."
+    }
+  },
+  "bookCard": {
+    "reading": "Leyendo",
+    "finished": "Terminado",
+    "toRead": "Por Leer",
+    "progress": "Progreso",
+    "edit": "Editar",
+    "delete": "Eliminar"
+  },
+  "modal": {
+    "addTitle": "Agregar Libro",
+    "editTitle": "Editar Libro",
+    "titlePlaceholder": "Título",
+    "authorPlaceholder": "Autor",
+    "statusLabel": "Estado",
+    "selectStatus": "Seleccionar estado",
+    "reading": "Leyendo",
+    "finished": "Terminado",
+    "toRead": "Por Leer",
+    "ratingLabel": "Calificación (1-5)",
+    "notesLabel": "Notas",
+    "notesPlaceholder": "Agregar notas...",
+    "cancel": "Cancelar",
+    "save": "Guardar Libro"
+  },
+  "auth": {
+    "welcomeBack": "Bienvenido de nuevo",
+    "signInDesc": "Inicia sesión para continuar tu viaje de lectura",
+    "createAccount": "Crear Cuenta",
+    "signUpDesc": "Únete a Oasis y registra tus lecturas",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "loading": "Cargando...",
+    "signIn": "Iniciar Sesión",
+    "signUp": "Registrarse",
+    "noAccount": "¿No tienes cuenta? Regístrate",
+    "hasAccount": "¿Ya tienes cuenta? Inicia sesión"
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "nav": {
+    "login": "Login"
+  },
+  "hero": {
+    "tag": "🚀 Oasis Book Tracking 2.0 is here",
+    "title1": "Escape the noise.",
+    "title2": "Immerse in reading.",
+    "subtitle": "Ditch the cluttered spreadsheets and clunky social networks. Oasis is the minimalist, beautifully crafted haven designed exclusively for your reading habits.",
+    "cta": "Start Using Oasis",
+    "socialProof": "Loved by 10,000+ avid readers worldwide."
+  },
+  "mockup": {
+    "book1": {
+      "title": "Dune",
+      "author": "Frank Herbert",
+      "status": "Reading",
+      "progress": "Chapter 12, Page 245"
+    },
+    "book2": {
+      "title": "Atomic Habits",
+      "author": "James Clear",
+      "status": "Finished"
+    },
+    "book3": {
+      "title": "Project Hail Mary",
+      "author": "Andy Weir",
+      "status": "To Read"
+    }
+  },
+  "problem": {
+    "label": "The Problem",
+    "title": "Goodreads is outdated. Excel is boring. Your reading life deserves better.",
+    "desc": "We noticed that readers were forced to choose between social networks filled with ads and toxic reviews, or boring, lifeless spreadsheets. Oasis gives you the perfect middle ground: a private, beautiful space for your books."
+  },
+  "features": {
+    "f1": {
+      "title": "Private Library",
+      "desc": "Your books, your business. No followers, no pressure, just your personal collection."
+    },
+    "f2": {
+      "title": "Beautiful Design",
+      "desc": "Looks stunning on your 4K monitor, your laptop, and your smartphone. Read anywhere."
+    },
+    "f3": {
+      "title": "Smart Tracking",
+      "desc": "Track your progress, rate your reads, and organize your backlog with zero friction."
+    }
+  },
+  "howItWorks": {
+    "title": "How Oasis works",
+    "step1": {
+      "title": "Create Account",
+      "desc": "Sign up in seconds and access your secure, private sanctuary."
+    },
+    "step2": {
+      "title": "Build Library",
+      "desc": "Add the books you've read, are reading, or want to read next."
+    },
+    "step3": {
+      "title": "Track & Review",
+      "desc": "Update progress and leave notes just for yourself."
+    }
+  },
+  "cta": {
+    "title": "Ready to elevate your reading?",
+    "desc": "Join the thousands of readers who have already upgraded their digital library experience.",
+    "button": "Get Started Now"
+  },
+  "footer": {
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "github": "GitHub",
+    "twitter": "Twitter"
+  }
+}

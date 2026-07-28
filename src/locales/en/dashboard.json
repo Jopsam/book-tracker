@@ -1,0 +1,68 @@
+{
+  "header": {
+    "title": "Oasis Book Tracking",
+    "signOut": "Sign Out"
+  },
+  "tabs": {
+    "books": "Books"
+  },
+  "actions": {
+    "search": "Search books...",
+    "addBook": "Add New Book",
+    "all": "All",
+    "reading": "Reading",
+    "finished": "Finished",
+    "toRead": "To Read"
+  },
+  "emptyStates": {
+    "noResults": {
+      "title": "No books found",
+      "desc": "Try adjusting your search query."
+    },
+    "emptyLibrary": {
+      "title": "Your library is empty",
+      "desc": "Add your first book to start tracking your reading journey!"
+    },
+    "emptySection": {
+      "title": "No books in this section",
+      "desc": "You haven't added any books with this status yet."
+    }
+  },
+  "bookCard": {
+    "reading": "Reading",
+    "finished": "Finished",
+    "toRead": "To Read",
+    "progress": "Progress",
+    "edit": "Edit",
+    "delete": "Delete"
+  },
+  "modal": {
+    "addTitle": "Add Book",
+    "editTitle": "Edit Book",
+    "titlePlaceholder": "Title",
+    "authorPlaceholder": "Author",
+    "statusLabel": "Status",
+    "selectStatus": "Select status",
+    "reading": "Reading",
+    "finished": "Finished",
+    "toRead": "To Read",
+    "ratingLabel": "Rating (1-5)",
+    "notesLabel": "Notes",
+    "notesPlaceholder": "Add notes...",
+    "cancel": "Cancel",
+    "save": "Save Book"
+  },
+  "auth": {
+    "welcomeBack": "Welcome Back",
+    "signInDesc": "Sign in to continue your reading journey",
+    "createAccount": "Create Account",
+    "signUpDesc": "Join Oasis and track your reading",
+    "email": "Email",
+    "password": "Password",
+    "loading": "Loading...",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "noAccount": "Don't have an account? Sign up",
+    "hasAccount": "Already have an account? Sign in"
+  }
+}

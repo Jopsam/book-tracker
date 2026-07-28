@@ -1,0 +1,76 @@
+{
+  "nav": {
+    "login": "Ingresar"
+  },
+  "hero": {
+    "tag": "🚀 Oasis Book Tracking 2.0 ya está aquí",
+    "title1": "Escapa del ruido.",
+    "title2": "Sumérgete en la lectura.",
+    "subtitle": "Olvídate de las hojas de cálculo desordenadas y las redes sociales torpes. Oasis es el refugio minimalista y bellamente diseñado exclusivamente para tus hábitos de lectura.",
+    "cta": "Comenzar a usar Oasis",
+    "socialProof": "Amado por más de 10,000 ávidos lectores en todo el mundo."
+  },
+  "mockup": {
+    "book1": {
+      "title": "Dune",
+      "author": "Frank Herbert",
+      "status": "Leyendo",
+      "progress": "Capítulo 12, Pág 245"
+    },
+    "book2": {
+      "title": "Hábitos Atómicos",
+      "author": "James Clear",
+      "status": "Terminado"
+    },
+    "book3": {
+      "title": "Proyecto Hail Mary",
+      "author": "Andy Weir",
+      "status": "Por leer"
+    }
+  },
+  "problem": {
+    "label": "El Problema",
+    "title": "Goodreads está obsoleto. Excel es aburrido. Tu vida lectora merece algo mejor.",
+    "desc": "Notamos que los lectores estaban obligados a elegir entre redes sociales llenas de anuncios y reseñas tóxicas, u hojas de cálculo aburridas y sin vida. Oasis te da el punto medio perfecto: un espacio privado y hermoso para tus libros."
+  },
+  "features": {
+    "f1": {
+      "title": "Biblioteca Privada",
+      "desc": "Tus libros, tus asuntos. Sin seguidores, sin presión, solo tu colección personal."
+    },
+    "f2": {
+      "title": "Diseño Hermoso",
+      "desc": "Se ve increíble en tu monitor 4K, tu laptop y tu smartphone. Lee en cualquier lugar."
+    },
+    "f3": {
+      "title": "Seguimiento Inteligente",
+      "desc": "Registra tu progreso, califica tus lecturas y organiza tus pendientes sin fricción."
+    }
+  },
+  "howItWorks": {
+    "title": "Cómo funciona Oasis",
+    "step1": {
+      "title": "Crea tu Cuenta",
+      "desc": "Regístrate en segundos y accede a tu santuario privado y seguro."
+    },
+    "step2": {
+      "title": "Arma tu Biblioteca",
+      "desc": "Agrega los libros que leíste, estás leyendo, o quieres leer."
+    },
+    "step3": {
+      "title": "Registra y Reseña",
+      "desc": "Actualiza tu progreso y deja notas solo para ti."
+    }
+  },
+  "cta": {
+    "title": "¿Listo para elevar tu lectura?",
+    "desc": "Únete a los miles de lectores que ya han mejorado su experiencia de biblioteca digital.",
+    "button": "Comenzar Ahora"
+  },
+  "footer": {
+    "privacy": "Privacidad",
+    "terms": "Términos",
+    "github": "GitHub",
+    "twitter": "Twitter"
+  }
+}

@@ -6,6 +6,8 @@ import { ArrowLeft } from 'lucide-react'
 import { sileo } from 'sileo'
 
 export default function Auth() {
+  const { t } = useTranslation('dashboard')
+
   const { user } = useAuth()
   const navigate = useNavigate()
   
@@ -53,7 +55,7 @@ export default function Auth() {
           <ArrowLeft size={16} /> Back to Home
         </Link>
         <h2 className="h2" style={{ marginBottom: '1.5rem', textAlign: 'center' }}>
-          {isLogin ? 'Sign In' : 'Create Account'}
+          {isLogin ? t('auth.signIn') : t('auth.createAccount')}
         </h2>
 
         <form onSubmit={handleAuth}>
@@ -68,7 +70,7 @@ export default function Auth() {
             />
           </div>
           <div className="input-group">
-            <label className="input-label">Password</label>
+            <label className="input-label">{t('auth.password')}</label>
             <input 
               type="password" 
               className="input-field" 

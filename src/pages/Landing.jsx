@@ -1,9 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+import LanguageSwitcher from '../components/LanguageSwitcher'
 import { BookOpen, TrendingUp, CheckCircle, Star, Search, Shield, ChevronRight, Zap, Layout, Heart, Smartphone, Database } from 'lucide-react'
 import { motion } from 'framer-motion'
 
 export default function Landing() {
+  const { t } = useTranslation('landing')
+
   return (
     <div style={{ position: 'relative', overflow: 'hidden', minHeight: '100vh', paddingBottom: '0' }}>
       {/* Animated Background Orbs */}
@@ -33,6 +37,7 @@ export default function Landing() {
             <span className="h3" style={{ fontWeight: '700', letterSpacing: '-0.02em', margin: 0 }}>Oasis Book Tracking</span>
           </div>
           <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+            <LanguageSwitcher />
             <Link to="/auth" className="btn btn-outline" style={{ borderRadius: 'var(--radius-full)', padding: '0.5rem 1.5rem' }}>
               Sign In
             </Link>
@@ -47,7 +52,7 @@ export default function Landing() {
             transition={{ duration: 0.8, delay: 0.1 }}
             style={{ display: 'inline-block', marginBottom: '1.5rem', padding: '0.5rem 1rem', borderRadius: 'var(--radius-full)', backgroundColor: 'rgba(99, 102, 241, 0.1)', border: '1px solid rgba(99, 102, 241, 0.2)', color: 'var(--primary)', fontSize: '0.875rem', fontWeight: '500' }}
           >
-            🚀 Oasis Book Tracking 2.0 is here
+            {t('hero.tag')}
           </motion.div>
           
           <motion.h1 
@@ -76,6 +81,7 @@ export default function Landing() {
             transition={{ duration: 0.8, delay: 0.4 }}
             style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}
           >
+            <LanguageSwitcher />
             <Link to="/auth" className="btn btn-primary" style={{ fontSize: '1.125rem', padding: '1rem 2.5rem', borderRadius: 'var(--radius-full)' }}>
               Start your library for free <ChevronRight size={20} />
             </Link>
@@ -90,7 +96,7 @@ export default function Landing() {
             <div style={{ display: 'flex', gap: '0.25rem' }}>
               {[1,2,3,4,5].map(i => <Star key={i} size={16} color="#fbbf24" fill="#fbbf24" />)}
             </div>
-            <span>Loved by 10,000+ avid readers worldwide.</span>
+            <span>{t('hero.socialProof')}</span>
           </motion.div>
         </main>
 
@@ -218,7 +224,7 @@ export default function Landing() {
 
         {/* 3. Social Proof & Problem Statement */}
         <div style={{ marginTop: '8rem', textAlign: 'center' }}>
-          <p style={{ color: 'var(--primary)', fontWeight: '600', letterSpacing: '0.1em', textTransform: 'uppercase', fontSize: '0.875rem', marginBottom: '1rem' }}>The Problem</p>
+          <p style={{ color: 'var(--primary)', fontWeight: '600', letterSpacing: '0.1em', textTransform: 'uppercase', fontSize: '0.875rem', marginBottom: '1rem' }}>{t('problem.label')}</p>
           <h2 className="h2" style={{ maxWidth: '800px', margin: '0 auto 2rem auto', lineHeight: 1.3 }}>
             Goodreads is outdated. Excel is boring.<br />Your reading life deserves better.
           </h2>
@@ -305,31 +311,31 @@ export default function Landing() {
           >
             <Smartphone size={28} color="var(--text-primary)" style={{ marginBottom: '1rem' }} />
             <h4 style={{ fontSize: '1.125rem', marginBottom: '0.5rem', fontWeight: '600' }}>Responsive</h4>
-            <p className="text-muted" style={{ fontSize: '0.875rem' }}>Looks stunning on your 4K monitor, your laptop, and your smartphone. Read anywhere.</p>
+            <p className="text-muted" style={{ fontSize: '0.875rem' }}>{t('features.f2.desc')}</p>
           </motion.div>
         </div>
 
         {/* 5. How it Works / Steps */}
         <div style={{ marginTop: '10rem', marginBottom: '4rem' }}>
-          <h2 className="h2" style={{ textAlign: 'center', marginBottom: '4rem' }}>How Oasis works</h2>
+          <h2 className="h2" style={{ textAlign: 'center', marginBottom: '4rem' }}>{t('howItWorks.title')}</h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '3rem', position: 'relative' }}>
             <div style={{ position: 'absolute', top: '24px', left: '10%', right: '10%', height: '2px', background: 'linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0) 100%)', zIndex: 0, display: 'none', '@media (min-width: 768px)': { display: 'block' } }}></div>
             
             <div style={{ textAlign: 'center', position: 'relative', zIndex: 1 }}>
               <div style={{ width: '48px', height: '48px', borderRadius: '50%', backgroundColor: 'var(--surface-color)', border: '1px solid var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem auto', fontSize: '1.25rem', fontWeight: '700', color: 'var(--primary)', boxShadow: '0 0 20px rgba(99, 102, 241, 0.2)' }}>1</div>
-              <h3 className="h3" style={{ marginBottom: '1rem' }}>Create Account</h3>
+              <h3 className="h3" style={{ marginBottom: '1rem' }}>{t('howItWorks.step1.title')}</h3>
               <p className="text-muted">Sign up in seconds. No credit card required. A purely private workspace.</p>
             </div>
             
             <div style={{ textAlign: 'center', position: 'relative', zIndex: 1 }}>
               <div style={{ width: '48px', height: '48px', borderRadius: '50%', backgroundColor: 'var(--surface-color)', border: '1px solid var(--accent)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem auto', fontSize: '1.25rem', fontWeight: '700', color: 'var(--accent)', boxShadow: '0 0 20px rgba(16, 185, 129, 0.2)' }}>2</div>
-              <h3 className="h3" style={{ marginBottom: '1rem' }}>Build Library</h3>
+              <h3 className="h3" style={{ marginBottom: '1rem' }}>{t('howItWorks.step2.title')}</h3>
               <p className="text-muted">Add books manually or let us automatically fetch covers from OpenLibrary.</p>
             </div>
             
             <div style={{ textAlign: 'center', position: 'relative', zIndex: 1 }}>
               <div style={{ width: '48px', height: '48px', borderRadius: '50%', backgroundColor: 'var(--surface-color)', border: '1px solid var(--warning)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem auto', fontSize: '1.25rem', fontWeight: '700', color: 'var(--warning)', boxShadow: '0 0 20px rgba(245, 158, 11, 0.2)' }}>3</div>
-              <h3 className="h3" style={{ marginBottom: '1rem' }}>Track & Review</h3>
+              <h3 className="h3" style={{ marginBottom: '1rem' }}>{t('howItWorks.step3.title')}</h3>
               <p className="text-muted">Update your progress and write down your private thoughts when you finish.</p>
             </div>
           </div>
@@ -346,7 +352,8 @@ export default function Landing() {
           <p className="text-muted" style={{ maxWidth: '500px', margin: '0 auto 2.5rem auto', fontSize: '1.125rem' }}>
             Join thousands of readers who have already migrated to the most elegant book tracking experience on the web.
           </p>
-          <Link to="/auth" className="btn btn-primary" style={{ fontSize: '1.125rem', padding: '1rem 3rem', borderRadius: 'var(--radius-full)' }}>
+          <LanguageSwitcher />
+            <Link to="/auth" className="btn btn-primary" style={{ fontSize: '1.125rem', padding: '1rem 3rem', borderRadius: 'var(--radius-full)' }}>
             Start Using Oasis
           </Link>
           <p style={{ marginTop: '1.5rem', fontSize: '0.875rem', color: 'var(--text-secondary)' }}>Free forever. No ads. No tracking.</p>
@@ -361,8 +368,8 @@ export default function Landing() {
           <div style={{ display: 'flex', gap: '2rem', fontSize: '0.875rem', color: 'var(--text-secondary)' }}>
             <span style={{ cursor: 'pointer', transition: 'color 0.2s' }} onMouseOver={e => e.target.style.color='white'} onMouseOut={e => e.target.style.color='var(--text-secondary)'}>Twitter</span>
             <span style={{ cursor: 'pointer', transition: 'color 0.2s' }} onMouseOver={e => e.target.style.color='white'} onMouseOut={e => e.target.style.color='var(--text-secondary)'}>GitHub</span>
-            <span style={{ cursor: 'pointer', transition: 'color 0.2s' }} onMouseOver={e => e.target.style.color='white'} onMouseOut={e => e.target.style.color='var(--text-secondary)'}>Privacy</span>
-            <span style={{ cursor: 'pointer', transition: 'color 0.2s' }} onMouseOver={e => e.target.style.color='white'} onMouseOut={e => e.target.style.color='var(--text-secondary)'}>Terms</span>
+            <span style={{ cursor: 'pointer', transition: 'color 0.2s' }} onMouseOver={e => e.target.style.color='white'} onMouseOut={e => e.target.style.color='var(--text-secondary)'}>{t('footer.privacy')}</span>
+            <span style={{ cursor: 'pointer', transition: 'color 0.2s' }} onMouseOver={e => e.target.style.color='white'} onMouseOut={e => e.target.style.color='var(--text-secondary)'}>{t('footer.terms')}</span>
           </div>
         </footer>
 

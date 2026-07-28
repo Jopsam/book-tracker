@@ -7,6 +7,8 @@ import { sileo } from 'sileo'
 import { motion, AnimatePresence } from 'framer-motion'
 
 export default function Dashboard() {
+  const { t } = useTranslation('dashboard')
+
   const { user } = useAuth()
   const [books, setBooks] = useState([])
   const [loading, setLoading] = useState(true)
@@ -152,9 +154,9 @@ export default function Dashboard() {
 
   const getStatusBadge = (s) => {
     switch(s) {
-      case 'read': return <span style={{ color: 'var(--accent)', fontSize: '0.875rem', fontWeight: '500' }}>Finished</span>
-      case 'to_read': return <span style={{ color: 'var(--text-secondary)', fontSize: '0.875rem', fontWeight: '500' }}>To Read</span>
-      case 'reading': return <span style={{ color: 'var(--warning)', fontSize: '0.875rem', fontWeight: '500' }}>Reading</span>
+      case 'read': return <span style={{ color: 'var(--accent)', fontSize: '0.875rem', fontWeight: '500' }}>{t('actions.finished')}</span>
+      case 'to_read': return <span style={{ color: 'var(--text-secondary)', fontSize: '0.875rem', fontWeight: '500' }}>{t('actions.toRead')}</span>
+      case 'reading': return <span style={{ color: 'var(--warning)', fontSize: '0.875rem', fontWeight: '500' }}>{t('actions.reading')}</span>
       default: return null
     }
   }
@@ -296,7 +298,7 @@ export default function Dashboard() {
               <input className="input-field" value={author} onChange={e => setAuthor(e.target.value)} />
             </div>
             <div className="input-group" style={{ gridColumn: status === 'to_read' ? '1 / -1' : 'auto' }}>
-              <label className="input-label">Status</label>
+              <label className="input-label">{t('modal.statusLabel')}</label>
               <div style={{ display: 'flex', gap: '0.25rem', backgroundColor: 'rgba(0,0,0,0.2)', padding: '0.25rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-color)' }}>
                 {[
                   { value: 'to_read', label: 'To Read' },
@@ -380,7 +382,7 @@ export default function Dashboard() {
               <button type="submit" className="btn btn-primary" disabled={isSaving}>
                 {isSaving ? 'Searching cover & saving...' : 'Save Book'}
               </button>
-              <button type="button" onClick={resetForm} className="btn btn-outline" disabled={isSaving}>Cancel</button>
+              <button type="button" onClick={resetForm} className="btn btn-outline" disabled={isSaving}>{t('modal.cancel')}</button>
             </div>
           </form>
           </div>
@@ -519,7 +521,7 @@ export default function Dashboard() {
                     <div style={{ marginTop: '1rem', backgroundColor: 'rgba(0,0,0,0.2)', padding: '0.75rem', borderRadius: 'var(--radius-sm)' }}>
                       {book.status === 'reading' ? (
                         <p className="text-muted" style={{ margin: 0, fontSize: '0.875rem', display: 'flex', justifyContent: 'space-between' }}>
-                          <span>Progress</span>
+                          <span>{t('bookCard.progress')}</span>
                           <strong style={{ color: 'var(--text-primary)' }}>{book.progress}</strong>
                         </p>
                       ) : (
