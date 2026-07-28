@@ -51,28 +51,28 @@ export default function Dashboard() {
   }, [])
 
   
-  const searchGoogleBooks = async (query) => {
+  const searchBooks = async (query) => {
     if (!query.trim()) {
       setSearchResults([])
       return
     }
     setIsSearching(true)
     try {
-      const res = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(query)}&maxResults=5`)
+      const res = await fetch(`https://openlibrary.org/search.json?q=${encodeURIComponent(query)}&limit=5`)
       const data = await res.json()
-      if (data.items) {
-        setSearchResults(data.items.map(item => ({
-          id: item.id,
-          title: item.volumeInfo.title,
-          author: item.volumeInfo.authors ? item.volumeInfo.authors.join(', ') : '',
-          coverUrl: item.volumeInfo.imageLinks?.thumbnail?.replace('http:', 'https:') || '',
-          pageCount: item.volumeInfo.pageCount || ''
+      if (data.docs) {
+        setSearchResults(data.docs.map(item => ({
+          id: item.key,
+          title: item.title,
+          author: item.author_name ? item.author_name.join(', ') : '',
+          coverUrl: item.cover_i ? `https://covers.openlibrary.org/b/id/${item.cover_i}-L.jpg` : '',
+          pageCount: item.number_of_pages_median || ''
         })))
       } else {
         setSearchResults([])
       }
     } catch (err) {
-      console.error('Error fetching from Google Books', err)
+      console.error('Error fetching from OpenLibrary', err)
       setSearchResults([])
     } finally {
       setIsSearching(false)
@@ -352,14 +352,14 @@ const fetchBooks = async () => {
                   onKeyDown={e => {
                     if (e.key === 'Enter') {
                       e.preventDefault()
-                      searchGoogleBooks(bookSearchQuery)
+                      searchBooks(bookSearchQuery)
                     }
                   }}
                 />
                 <button 
                   type="button" 
                   className="btn btn-primary" 
-                  onClick={() => searchGoogleBooks(bookSearchQuery)}
+                  onClick={() => searchBooks(bookSearchQuery)}
                   disabled={isSearching}
                 >
                   {isSearching ? '...' : <Search size={20} />}
