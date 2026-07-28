@@ -256,3 +256,12 @@ select.input-field option:hover {
   }
 }
 
+
+.hide-on-mobile {
+  display: none !important;
+}
+@media (min-width: 768px) {
+  .hide-on-mobile {
+    display: inline-block !important; /* or flex/block depending on element */
+  }
+}

@@ -200,7 +200,7 @@ export default function Dashboard() {
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '48px', height: '48px', backgroundColor: 'rgba(99, 102, 241, 0.1)', borderRadius: 'var(--radius-md)', color: 'var(--primary)' }}>
             <BookOpen size={28} />
           </div>
-          <div>
+          <div className="hide-on-mobile">
             <h1 className="h2" style={{ fontSize: '1.5rem', margin: 0, padding: 0 }}>Oasis Book Tracking</h1>
             <p className="text-muted" style={{ fontSize: '0.875rem', margin: 0 }}>{user.email}</p>
           </div>
